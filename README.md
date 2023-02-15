@@ -1,4 +1,4 @@
-<img alt="Cover" src="/readme.assets/cover.jpg">
+<img alt="Cover" src="/readme.assets/rovo-cover.jpg">
 
 ## 💇🏻‍♂️ About the project
 
