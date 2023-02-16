@@ -1,4 +1,4 @@
-const btnOpenModal = document.querySelectorAll('.rovo-modal-open_btn')
+const btnOpenModal = document.querySelectorAll('.rovo-list__item-content')
 const btnCloseModal = document.querySelectorAll('.rovo-list-modal__item-close')
 const overlayCloseModal = document.querySelectorAll('.rovo-list-modal--overlay')
 
@@ -8,7 +8,8 @@ const handleOpenModal = (element) => {
       el.parentElement.classList.add('modal-open');
       document.body.classList.add('overflow-hidden');
       document.querySelector('html').classList.add('overflow-hidden');
-
+      const clonePills = el.lastChild.cloneNode(true)
+      el.parentElement.querySelector('.rovo-js-append-pills').append(clonePills)
     })
   })
 }
@@ -16,9 +17,11 @@ const handleOpenModal = (element) => {
 const handleCloseModal = (element) => {
   element.forEach((el) => {
     el.addEventListener('click', () => {
+      el.closest('.modal-open').querySelector('.rovo-js-append-pills').lastChild.remove()
       el.closest('.modal-open').classList.remove('modal-open');
       document.body.classList.remove('overflow-hidden');
       document.querySelector('html').classList.remove('overflow-hidden');
+
     })
   })
 }
@@ -34,7 +37,7 @@ if (window.innerWidth >= 768) {
     const footerTop = footer.getBoundingClientRect().top;
 
     if (footerTop < window.innerHeight) {
-      header.style.height = `calc(100vh - ${window.innerHeight - footerTop}px)`;
+      header.style.height = `calc(100vh - ${window.innerHeight - footerTop}px - 90px)`;
     } else {
       header.style.height = '100vh';
     }
