@@ -1,37 +1,35 @@
-<!-- ABOUT -->
 <!-- Splide CSS -->
 <link href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css" rel="stylesheet">
 
 <!-- Swiper JS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css"
+/>
 
 <style>
-  html {
-    scroll-behavior: smooth;
+	html {
+  	scroll-behavior: smooth;
   }
-
+  
   @media (min-width:992px) {
-
     /* hide scrollbar but allow scrolling */
     html {
-      -ms-overflow-style: none;
-      /* for Internet Explorer, Edge */
-      scrollbar-width: none;
-      /* for Firefox */
-      overflow-y: scroll;
+      -ms-overflow-style: none; /* for Internet Explorer, Edge */
+      scrollbar-width: none; /* for Firefox */
+      overflow-y: scroll; 
     }
 
     body::-webkit-scrollbar {
-      display: none;
-      /* for Chrome, Safari, and Opera */
+      display: none; /* for Chrome, Safari, and Opera */
     }
   }
-
+  /* slider */
   .swiper {
     width: 100%;
     height: auto;
   }
-
+  /* slider pagination */
   .swiper-pagination-bullet {
     width: 2rem;
     height: 0.1875rem;
@@ -39,75 +37,91 @@
     border-radius: 0;
     opacity: 0.5;
   }
-
+  
+  /* slider pagination */
   .swiper-pagination-bullet-active {
     background: #000000;
     opacity: 1;
   }
-
+  
+  /* slider cards pagination */
   #rovo-slider-cards+.swiper-pagination {
     top: -24px !important;
     padding-right: 1rem;
     height: 1.5rem;
     display: flex;
-    align-items: flex-start;
+    align-items: flex-end;
     justify-content: flex-end;
   }
-
+  
   @media only screen and (min-width: 768px) {
+    /* slider */
     .rovo-swiper {
-      padding-top: 32px;
-      margin-top: -42px;
+      padding-top: 40px;
+      margin-top: -55px;
     }
-
+		/* slider pagination */
     .swiper-pagination {
       top: 0 !important;
       padding-right: 1rem;
       height: 1.5rem;
       display: flex;
-      align-items: flex-start;
+      align-items: flex-end;
       justify-content: flex-end;
     }
-
+		/* slider cards pagination */
     #rovo-slider-cards+.swiper-pagination {
-      top: 15px !important;
+      top: 0px !important;
     }
-
+		/* modal overlay */
     .modal-open>.rovo-list-modal--overlay {
       display: block;
       opacity: 1;
     }
-  }
 
-  @media only screen and (min-width: 1024px) {
+    /* responsible for make sliders touch screen on the right */
     .rovo-slider-numbers {
-      width: calc(100% + 2rem);
+      width: calc(100% + 1.5625rem);
+    }   
+    /* responsible for make sliders touch screen on the right */
+    .rovo-slider-cards {
+      width: calc(100% + 1.5625rem);
     }
   }
-
+  
+  @media only screen and (min-width: 991px) {
+  	/* responsible for make sliders touch screen on the right */
+    .rovo-slider-numbers {
+      width: calc(100% + 1.875rem);
+    }   
+    /* responsible for make sliders touch screen on the right */
+    .rovo-slider-cards {
+    	width: calc(100% + 1.875rem);
+    }
+  }	
+  
+  /* header mobile */
   .rovo-header-anchor__nav-wrapper {
     transition: 0.3s;
   }
-
+  
+  /* header mobile */
   .rovo-header-anchor__nav-wrapper.open {
-    transform: translate(0%, 0px);
+  	transform: translate(0%, 0px);
   }
-
+  
+  /* modal */
   .overflow-hidden {
-    overflow: hidden;
+  	overflow: hidden;
   }
-
+  /* modal transition */
   .rovo-list__item {
-    transition: .3s;
+  	transition: .3s;
   }
-
+  /* modal behaviour */
   .modal-open>.rovo-list-modal {
-    transform: translate(0%, 0px);
+    transform: translate(0%,0px);
   }
+  
+  
 </style>
-
-
-
-<!-- Splide JS and it's extension -->
-<script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.4/swiper-bundle.min.js"></script>
