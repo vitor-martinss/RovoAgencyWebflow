@@ -3,7 +3,6 @@ html {
 }
 
 @media (min-width:992px) {
-
   /* hide scrollbar but allow scrolling */
   html {
     -ms-overflow-style: none;

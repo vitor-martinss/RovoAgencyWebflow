@@ -1,0 +1,83 @@
+/* slider */
+.swiper {
+  width: 100%;
+  height: auto;
+}
+
+/* slider sectin Investments */
+.rovo-swiper {
+  padding-top: 40px;
+  margin-top: -55px;
+}
+
+/* slider pagination index */
+.swiper-pagination {
+  z-index: 9;
+}
+
+/* slider pagination */
+.swiper-pagination-bullet {
+  width: 2rem;
+  height: 0.1875rem;
+  background: #C6C6C6;
+  border-radius: 0;
+  opacity: 0.5;
+}
+
+/* slider pagination */
+.swiper-pagination-bullet-active {
+  background: #000000;
+  opacity: 1;
+}
+
+/* slider cards pagination */
+#rovo-slider-cards+.swiper-pagination {
+  top: 0px !important;
+  padding-right: 1rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+@media only screen and (min-width: 768px) {
+
+  /* slider pagination */
+  .swiper-pagination {
+    top: 0 !important;
+    padding-right: 1rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+
+  /* modal overlay */
+  .modal-open>.rovo-list-modal--overlay {
+    display: block;
+    opacity: 1;
+  }
+
+  /* responsible for make sliders touch screen on the right */
+  .rovo-slider-numbers {
+    width: calc(100% + 1.5625rem);
+  }
+
+  /* responsible for make sliders touch screen on the right */
+  .rovo-slider-cards {
+    width: calc(100% + 1.5625rem);
+  }
+}
+
+@media only screen and (min-width: 991px) {
+
+  /* responsible for make sliders touch screen on the right */
+  .rovo-slider-numbers {
+    width: calc(100% + 1.875rem);
+  }
+
+  /* responsible for make sliders touch screen on the right */
+  .rovo-slider-cards {
+    width: calc(100% + 1.875rem);
+  }
+}

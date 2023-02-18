@@ -1,0 +1,19 @@
+.overflow-hidden {
+  overflow: hidden;
+}
+
+.form-success {
+  pointer-events: none;
+}
+
+.rovo-checkbox-field-error>.rovo-checkbox {
+  border-color: #FF8181;
+}
+
+.rovo-checkbox-field-error>.rovo-checkbox__label {
+  color: #FF8181;
+}
+
+.rovo-checkbox-field-error>.rovo-checkbox__label>.rovo-checkbox__link {
+  color: #FF8181;
+}
