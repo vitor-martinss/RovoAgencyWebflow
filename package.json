@@ -1,21 +1,23 @@
 {
   "name": "rovoagencywebflow",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.html",
+  "version": "0.0.1",
+  "description": "Rovo Agency Webflow",
+  "source": "src/index.html",
   "scripts": {
-    "start": "parcel index.html --open",
-    "build": "parcel build index.html"
+    "start": "parcel",
+    "build": "parcel build"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitor-martinss/RovoAgencyWebflow.git"
+  },
+  "author": "Vitor Martins",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitor-martinss/RovoAgencyWebflow/issues"
+  },
+  "homepage": "https://github.com/vitor-martinss/RovoAgencyWebflow#readme",
   "dependencies": {
-    "parcel-bundler": "^1.6.1"
-  },
-  "devDependencies": {
-    "@babel/core": "7.2.0",
-    "typescript": "4.4.4"
-  },
-  "resolutions": {
-    "@babel/preset-env": "7.13.8"
-  },
-  "keywords": []
+    "parcel": "^2.8.3"
+  }
 }
