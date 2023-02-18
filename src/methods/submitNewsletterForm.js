@@ -20,7 +20,7 @@ Webflow.push(function () {
       formBlock.classList.remove('form-success')
       formBlock.reset()
       document.querySelector('#rovo-newsletter-checkbox').checked = true
-    }, 5000);
+    }, 3000);
   }
 
   function findFields(form, result) {
