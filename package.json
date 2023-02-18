@@ -4,8 +4,8 @@
   "description": "Rovo Agency Webflow",
   "source": "src/index.html",
   "scripts": {
-    "start": "parcel",
-    "build": "parcel build"
+    "start": "parcel src/index.html --open",
+    "build": "parcel build index.html"
   },
   "repository": {
     "type": "git",
