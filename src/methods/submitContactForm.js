@@ -17,12 +17,22 @@ Webflow.push(function () {
     })
 
     selectField.forEach((select) => {
-      select.checkValidity() ? select.classList.remove('rovo-inquiry-form__select--error') : select.classList.add('rovo-inquiry-form__select--error')
+      if(select.checkValidity()) {
+        select.classList.remove('rovo-inquiry-form__select--error')
+      } else {
+        select.classList.add('rovo-inquiry-form__select--error')
+        select.style.color = '#FF8181'
+      }
     })
   }
 
-  function handleCurrentElementValidation(element) {
-    element.checkValidity() ? element.classList.remove('rovo-inquiry-form__select--error') : element.classList.add('rovo-inquiry-form__select--error')
+  function handleCurrentSelectElementValidation(element) {
+    if (element.checkValidity()) {
+      element.classList.remove('rovo-inquiry-form__select--error')
+    } else {
+      element.classList.add('rovo-inquiry-form__select--error')
+      element.style.color = '#FF8181'
+    }
   }
 
   function handleColorsOfSelects() {
@@ -31,7 +41,7 @@ Webflow.push(function () {
 
       select.addEventListener('change', (element) => {
         select.style.color = '#000'
-        handleCurrentElementValidation(element.currentTarget)
+        handleCurrentSelectElementValidation(element.currentTarget)
       })
     })
   }
