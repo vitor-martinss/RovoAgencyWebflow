@@ -4,6 +4,54 @@ const boxes = gsap.utils.toArray(".rovo-reels__list-item");
 
 console.clear();
 
+function handleSwitchAssetsOnChange(element) {
+  const reelMainContainer = document.getElementById("rovo-reels-main");
+
+  if (activeElement) {
+    activeElement.classList.remove("active");
+    reelMainContainer.innerHTML = "";
+  }
+
+  element.classList.add("active");
+  const activeElementSource = element.querySelector(".rovo-main-source");
+  const activeElementImageSourceDesktop = activeElementSource.getAttribute("data-image-src-desktop");
+  const activeElementImageSourceMobile = activeElementSource.getAttribute("data-image-src-mobile");
+  const activeElementVideoMP4SourceDesktop = activeElementSource.getAttribute("data-video-mp4-src-desktop");
+  const activeElementVideoMP4SourceMobile = activeElementSource.getAttribute("data-video-mp4-src-mobile");
+  const activeElementVideoWEBMSourceDesktop = activeElementSource.getAttribute("data-video-webm-src-desktop");
+  const activeElementVideoWEBMSourceMobile = activeElementSource.getAttribute("data-video-webm-src-mobile");
+
+  let assetComponentAppend
+
+  if (activeElementImageSourceDesktop || activeElementImageSourceMobile) {
+    if (window.innerWidth >= 768) {
+      assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceDesktop}" alt="${activeElementSource
+        .getAttribute("data-image-description")}">`;
+    } else {
+      assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceMobile}" alt="${activeElementSource
+        .getAttribute("data-image-description")}">`;
+    }
+  }
+
+  if (activeElementVideoMP4SourceDesktop || activeElementVideoMP4SourceMobile) {
+
+    if (window.innerWidth >= 768) {
+      assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline>
+        <source src="${activeElementVideoWEBMSourceDesktop}" type="video/webm">
+        <source src="${activeElementVideoMP4SourceDesktop}" type="video/mp4">
+      </video>`;
+    } else {
+      assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline>
+        <source src="${activeElementVideoWEBMSourceMobile}" type="video/webm">
+        <source src="${activeElementVideoMP4SourceMobile}" type="video/mp4">
+      </video>`;
+    }
+  }
+
+  reelMainContainer.innerHTML = assetComponentAppend;
+  activeElement = element;
+}
+
 let activeElement;
 const loop = horizontalLoop(boxes, {
   paused: false,
@@ -13,22 +61,7 @@ const loop = horizontalLoop(boxes, {
   center: true, // active element is the one in the center of the container rather than th left edge
   onChange: (element, index) => {
     // when the active element changes, this function gets called.
-    if (activeElement) {
-      activeElement.classList.remove("active");
-      document.getElementById("rovo-reels-main").innerHTML = "";
-    }
-
-    element.classList.add("active");
-    // todo - image or video - if video, play it
-    document.getElementById(
-      "rovo-reels-main"
-    ).innerHTML = `<img src="${element
-      .querySelector(".rovo-main-source")
-      .getAttribute("data-image-src-desktop")}" alt="${element
-      .querySelector(".rovo-main-source")
-      .getAttribute("data-image-description")}">`;
-
-    activeElement = element;
+    handleSwitchAssetsOnChange(element);
   }
 });
 
