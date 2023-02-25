@@ -53,8 +53,7 @@ function horizontalLoop(items, config) {
     lastIndex = 0,
     tl = gsap.timeline({
       repeat: config.repeat,
-      onUpdate:
-        onChange &&
+      onUpdate: onChange &&
         function () {
           let i = tl.closestIndex();
           if (lastIndex !== i) {
@@ -63,7 +62,9 @@ function horizontalLoop(items, config) {
           }
         },
       paused: config.paused,
-      defaults: { ease: "none" },
+      defaults: {
+        ease: "none"
+      },
       onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)
     }),
     length = items.length,
@@ -78,18 +79,18 @@ function horizontalLoop(items, config) {
     snap = config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1), // some browsers shift by a pixel to accommodate flex layouts, so for example if width is 20% the first element's width might be 242px, and the next 243px, alternating back and forth. So we snap to 5 percentage points to make things look more natural
     timeOffset = 0,
     container =
-      center === true
-        ? items[0].parentNode
-        : gsap.utils.toArray(center)[0] || items[0].parentNode,
+    center === true ?
+    items[0].parentNode :
+    gsap.utils.toArray(center)[0] || items[0].parentNode,
     totalWidth,
     getTotalWidth = () =>
-      items[length - 1].offsetLeft +
-      (xPercents[length - 1] / 100) * widths[length - 1] -
-      startX +
-      spaceBefore[0] +
-      items[length - 1].offsetWidth *
-        gsap.getProperty(items[length - 1], "scaleX") +
-      (parseFloat(config.paddingRight) || 0),
+    items[length - 1].offsetLeft +
+    (xPercents[length - 1] / 100) * widths[length - 1] -
+    startX +
+    spaceBefore[0] +
+    items[length - 1].offsetWidth *
+    gsap.getProperty(items[length - 1], "scaleX") +
+    (parseFloat(config.paddingRight) || 0),
     populateWidths = () => {
       let b1 = container.getBoundingClientRect(),
         b2;
@@ -97,7 +98,7 @@ function horizontalLoop(items, config) {
         widths[i] = parseFloat(gsap.getProperty(el, "width", "px"));
         xPercents[i] = snap(
           (parseFloat(gsap.getProperty(el, "x", "px")) / widths[i]) * 100 +
-            gsap.getProperty(el, "xPercent")
+          gsap.getProperty(el, "xPercent")
         );
         b2 = el.getBoundingClientRect();
         spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
@@ -111,15 +112,15 @@ function horizontalLoop(items, config) {
     },
     timeWrap,
     populateOffsets = () => {
-      timeOffset = center
-        ? (tl.duration() * (container.offsetWidth / 2)) / totalWidth
-        : 0;
+      timeOffset = center ?
+        (tl.duration() * (container.offsetWidth / 2)) / totalWidth :
+        0;
       center &&
         times.forEach((t, i) => {
           times[i] = timeWrap(
             tl.labels["label" + i] +
-              (tl.duration() * widths[i]) / 2 / totalWidth -
-              timeOffset
+            (tl.duration() * widths[i]) / 2 / totalWidth -
+            timeOffset
           );
         });
     },
@@ -150,24 +151,20 @@ function horizontalLoop(items, config) {
         distanceToLoop =
           distanceToStart + widths[i] * gsap.getProperty(item, "scaleX");
         tl.to(
-          item,
-          {
-            xPercent: snap(((curX - distanceToLoop) / widths[i]) * 100),
-            duration: distanceToLoop / pixelsPerSecond
-          },
-          0
-        )
+            item, {
+              xPercent: snap(((curX - distanceToLoop) / widths[i]) * 100),
+              duration: distanceToLoop / pixelsPerSecond
+            },
+            0
+          )
           .fromTo(
-            item,
-            {
+            item, {
               xPercent: snap(
                 ((curX - distanceToLoop + totalWidth) / widths[i]) * 100
               )
-            },
-            {
+            }, {
               xPercent: xPercents[i],
-              duration:
-                (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
+              duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
               immediateRender: false
             },
             distanceToLoop / pixelsPerSecond
@@ -183,16 +180,19 @@ function horizontalLoop(items, config) {
       populateWidths();
       deep && populateTimeline();
       populateOffsets();
-      deep && tl.draggable
-        ? tl.time(times[curIndex], true)
-        : tl.progress(progress, true);
+      deep && tl.draggable ?
+        tl.time(times[curIndex], true) :
+        tl.progress(progress, true);
     },
     proxy;
-  gsap.set(items, { x: 0 });
+  gsap.set(items, {
+    x: 0
+  });
   populateWidths();
   populateTimeline();
   populateOffsets();
   window.addEventListener("resize", () => refresh(true));
+
   function toIndex(index, vars) {
     vars = vars || {};
     Math.abs(index - curIndex) > length / 2 &&
@@ -204,7 +204,9 @@ function horizontalLoop(items, config) {
       time += tl.duration() * (index > curIndex ? 1 : -1);
     }
     if (time < 0 || time > tl.duration()) {
-      vars.modifiers = { time: timeWrap };
+      vars.modifiers = {
+        time: timeWrap
+      };
     }
     curIndex = newIndex;
     vars.overwrite = true;
@@ -234,9 +236,9 @@ function horizontalLoop(items, config) {
       draggable,
       dragSnap,
       align = () =>
-        tl.progress(
-          wrap(startProgress + (draggable.startX - draggable.x) * ratio)
-        ),
+      tl.progress(
+        wrap(startProgress + (draggable.startX - draggable.x) * ratio)
+      ),
       syncIndex = () => tl.closestIndex(true);
     draggable = Draggable.create(proxy, {
       trigger: items[0].parentNode,
@@ -246,7 +248,10 @@ function horizontalLoop(items, config) {
         startProgress = tl.progress();
         refresh();
         ratio = 1 / totalWidth;
-        gsap.set(proxy, { x: startProgress / -ratio });
+        gsap.set(proxy, {
+          x: startProgress / -ratio
+        });
+        tl.pause();
       },
       onDrag: align,
       onThrowUpdate: align,
@@ -260,7 +265,10 @@ function horizontalLoop(items, config) {
           (dif += dif < 0 ? tl.duration() : -tl.duration());
         return (time + dif) / tl.duration() / -ratio;
       },
-      onRelease: syncIndex,
+      onRelease: () => {
+        tl.play();
+        syncIndex;
+      },
       onThrowComplete: syncIndex
     })[0];
     tl.draggable = draggable;
