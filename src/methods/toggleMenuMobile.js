@@ -1,4 +1,4 @@
-window.addEventListener("resize", () => {
+function handleToggleMenuMobile() {
   if (window.innerWidth < 768) {
     const headerButtonToggle = document.querySelector(
       ".rovo-header-mobile__btn"
@@ -58,4 +58,10 @@ window.addEventListener("resize", () => {
       });
     });
   }
+}
+
+handleToggleMenuMobile();
+
+window.addEventListener("resize", () => {
+  handleToggleMenuMobile();
 });
