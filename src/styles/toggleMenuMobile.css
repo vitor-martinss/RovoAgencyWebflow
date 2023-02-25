@@ -1,9 +1,3 @@
-/* header mobile */
-.rovo-header-anchor__nav-wrapper {
-  transition: 0.3s;
-}
-
-/* header mobile */
-.rovo-header-anchor__nav-wrapper.open {
-  transform: translate(0%, 0px);
+.rovo-reels-header.header--open {
+  background: white;
 }

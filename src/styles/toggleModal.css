@@ -1,25 +1,15 @@
-/* modal */
-.overflow-hidden {
-overflow: hidden;
-}
-
-/* modal transition */
-.rovo-list__item {
-transition: .3s;
-}
-
-/* modal behaviour */
-.modal-open>.rovo-list-modal {
-  transform: translate(0%, 0px);
-}
-
 /* avoid click on plus icon */
 .rovo-modal-open_btn {
   pointer-events: none;
 }
 
+.rovo-list-modal__list {
+  position: relative;
+  z-index: 0;
+}
+
 @media only screen and (min-width: 768px) {
-  .modal-open>.rovo-list-modal--overlay {
+  .modal-open > .rovo-list-modal--overlay {
     display: block;
     opacity: 1;
   }
