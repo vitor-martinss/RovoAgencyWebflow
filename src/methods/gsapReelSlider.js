@@ -1,5 +1,3 @@
-const wrapper = document.querySelector(".rovo-reels__list");
-
 const boxes = gsap.utils.toArray(".rovo-reels__list-item");
 
 console.clear();
