@@ -22,7 +22,18 @@ function handleToggleMenuMobile() {
 
     headerButtonToggle.addEventListener("click", () => {
       navMobile.classList.toggle("open");
-      homePageHeader && homePageHeader.classList.toggle("header--open");
+      if (homePageHeader) {
+        homePageHeader.classList.toggle("header--open");
+        if (
+          !homePageHeader.classList.contains("header--open") &&
+          homePageHeader.style.background === "white"
+        ) {
+          homePageHeader.style.background = "transparent";
+        } else {
+          homePageHeader.style.background = "white";
+        }
+      }
+
       document.body.classList.toggle("overflow-hidden");
       const isNavMobileOpen = navMobile.classList.contains("open");
 
@@ -41,7 +52,11 @@ function handleToggleMenuMobile() {
     anchorItems.forEach((el) => {
       el.addEventListener("click", () => {
         navMobile.classList.remove("open");
-        homePageHeader && homePageHeader.classList.remove("header--open");
+
+        if (homePageHeader) {
+          homePageHeader.classList.toggle("header--open");
+        }
+
         document.body.classList.toggle("overflow-hidden");
 
         handleGSAPAnimation(navMobile, "translateX(105%)", 0.3);
@@ -51,7 +66,11 @@ function handleToggleMenuMobile() {
     pageRouterLink.forEach((el) => {
       el.addEventListener("click", () => {
         navMobile.classList.remove("open");
-        homePageHeader && homePageHeader.classList.remove("header--open");
+
+        if (homePageHeader) {
+          homePageHeader.classList.toggle("header--open");
+        }
+
         document.body.classList.toggle("overflow-hidden");
 
         handleGSAPAnimation(navMobile, "translateX(105%)", 0);
