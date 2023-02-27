@@ -1,5 +1,21 @@
 const boxes = gsap.utils.toArray(".rovo-reels__list-item");
 
+function handleFakeBackground() {
+  const thumbnailContainerWidth = document.querySelector(
+    ".rovo-reels-thumbnail"
+  ).offsetWidth;
+  const thumbnailFakeBackground = document.querySelector(
+    ".rovo-reels-thumbnail-background"
+  );
+  const sumOfPaddingRightAndLeftOfThumbanilContainer =
+    window.innerWidth < 991 ? 50 : 60;
+  thumbnailFakeBackground.style.width = `${
+    thumbnailContainerWidth - sumOfPaddingRightAndLeftOfThumbanilContainer + 5
+  }px`;
+}
+handleFakeBackground();
+window.addEventListener("resize", () => handleFakeBackground());
+
 console.clear();
 
 function handleSwitchAssetsOnChange(element) {
@@ -12,27 +28,40 @@ function handleSwitchAssetsOnChange(element) {
 
   element.classList.add("active");
   const activeElementSource = element.querySelector(".rovo-main-source");
-  const activeElementImageSourceDesktop = activeElementSource.getAttribute("data-image-src-desktop");
-  const activeElementImageSourceMobile = activeElementSource.getAttribute("data-image-src-mobile");
-  const activeElementVideoMP4SourceDesktop = activeElementSource.getAttribute("data-video-mp4-src-desktop");
-  const activeElementVideoMP4SourceMobile = activeElementSource.getAttribute("data-video-mp4-src-mobile");
-  const activeElementVideoWEBMSourceDesktop = activeElementSource.getAttribute("data-video-webm-src-desktop");
-  const activeElementVideoWEBMSourceMobile = activeElementSource.getAttribute("data-video-webm-src-mobile");
+  const activeElementImageSourceDesktop = activeElementSource.getAttribute(
+    "data-image-src-desktop"
+  );
+  const activeElementImageSourceMobile = activeElementSource.getAttribute(
+    "data-image-src-mobile"
+  );
+  const activeElementVideoMP4SourceDesktop = activeElementSource.getAttribute(
+    "data-video-mp4-src-desktop"
+  );
+  const activeElementVideoMP4SourceMobile = activeElementSource.getAttribute(
+    "data-video-mp4-src-mobile"
+  );
+  const activeElementVideoWEBMSourceDesktop = activeElementSource.getAttribute(
+    "data-video-webm-src-desktop"
+  );
+  const activeElementVideoWEBMSourceMobile = activeElementSource.getAttribute(
+    "data-video-webm-src-mobile"
+  );
 
-  let assetComponentAppend
+  let assetComponentAppend;
 
   if (activeElementImageSourceDesktop || activeElementImageSourceMobile) {
     if (window.innerWidth >= 768) {
-      assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceDesktop}" alt="${activeElementSource
-        .getAttribute("data-image-description")}">`;
+      assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceDesktop}" alt="${activeElementSource.getAttribute(
+        "data-image-description"
+      )}">`;
     } else {
-      assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceMobile}" alt="${activeElementSource
-        .getAttribute("data-image-description")}">`;
+      assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceMobile}" alt="${activeElementSource.getAttribute(
+        "data-image-description"
+      )}">`;
     }
   }
 
   if (activeElementVideoMP4SourceDesktop || activeElementVideoMP4SourceMobile) {
-
     if (window.innerWidth >= 768) {
       assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline>
         <source src="${activeElementVideoWEBMSourceDesktop}" type="video/webm">
@@ -40,9 +69,9 @@ function handleSwitchAssetsOnChange(element) {
       </video>`;
     } else {
       assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline>
-        <source src="${activeElementVideoWEBMSourceMobile}" type="video/webm">
-        <source src="${activeElementVideoMP4SourceMobile}" type="video/mp4">
-      </video>`;
+      <source src="${activeElementVideoWEBMSourceMobile}" type="video/webm">
+      <source src="${activeElementVideoMP4SourceMobile}" type="video/mp4">
+    </video>`;
     }
   }
 
@@ -51,17 +80,24 @@ function handleSwitchAssetsOnChange(element) {
 }
 
 let activeElement;
-const loop = horizontalLoop(boxes, {
-  paused: false,
-  repeat: -1,
-  speed: 0.5,
-  draggable: true, // make it draggable
-  center: true, // active element is the one in the center of the container rather than th left edge
-  onChange: (element, index) => {
-    // when the active element changes, this function gets called.
-    handleSwitchAssetsOnChange(element);
-  }
-});
+setTimeout(() => {
+  const loop = horizontalLoop(boxes, {
+    paused: false,
+    repeat: -1,
+    speed: 0.18,
+    draggable: true, // make it draggable
+    center: true, // active element is the one in the center of the container rather than th left edge
+    onChange: (element, index) => {
+      // when the active element changes, this function gets called.
+      handleSwitchAssetsOnChange(element);
+    }
+  });
+
+  // in case you change center prop to false, remove the line below.
+  loop.toIndex(0, {
+    duration: 0
+  });
+}, 3000);
 
 /*
 This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
@@ -76,7 +112,7 @@ Features:
   - toIndex() - pass in a zero-based index value of the element that it should animate to, and optionally pass in a vars object to control duration, easing, etc. Always goes in the shortest direction
   - current() - returns the current index (if an animation is in-progress, it reflects the final index)
   - times - an Array of the times on the timeline where each element hits the "starting" spot.
- */
+  */
 function horizontalLoop(items, config) {
   items = gsap.utils.toArray(items);
   config = config || {};
@@ -105,6 +141,7 @@ function horizontalLoop(items, config) {
     spaceBefore = [],
     xPercents = [],
     curIndex = 0,
+    indexIsDirty = false,
     center = config.center,
     pixelsPerSecond = (config.speed || 1) * 100,
     snap = config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1), // some browsers shift by a pixel to accommodate flex layouts, so for example if width is 20% the first element's width might be 242px, and the next 243px, alternating back and forth. So we snap to 5 percentage points to make things look more natural
@@ -242,15 +279,20 @@ function horizontalLoop(items, config) {
     curIndex = newIndex;
     vars.overwrite = true;
     gsap.killTweensOf(proxy);
-    return tl.tweenTo(time, vars);
+    return vars.duration === 0 ?
+      tl.time(timeWrap(time)) :
+      tl.tweenTo(time, vars);
   }
-  tl.next = (vars) => toIndex(curIndex + 1, vars);
-  tl.previous = (vars) => toIndex(curIndex - 1, vars);
-  tl.current = () => curIndex;
+  tl.next = (vars) => toIndex(tl.current() + 1, vars);
+  tl.previous = (vars) => toIndex(tl.current() - 1, vars);
+  tl.current = () => (indexIsDirty ? tl.closestIndex(true) : curIndex);
   tl.toIndex = (index, vars) => toIndex(index, vars);
   tl.closestIndex = (setCurrent) => {
     let index = getClosest(times, tl.time(), tl.duration());
-    setCurrent && (curIndex = index);
+    if (setCurrent) {
+      curIndex = index;
+      indexIsDirty = false;
+    }
     return index;
   };
   tl.times = times;
@@ -298,13 +340,15 @@ function horizontalLoop(items, config) {
       },
       onRelease: () => {
         tl.play();
-        syncIndex;
+        syncIndex();
+        draggable.isThrowing && (indexIsDirty = true);
       },
       onThrowComplete: syncIndex
     })[0];
     tl.draggable = draggable;
   }
   tl.closestIndex(true);
+  lastIndex = curIndex;
   onChange && onChange(items[curIndex], curIndex);
   return tl;
 }
