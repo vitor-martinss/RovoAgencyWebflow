@@ -1,10 +1,4 @@
-const btnOpenModal = document.querySelectorAll(".rovo-list__item-content");
-const btnCloseModal = document.querySelectorAll(".rovo-list-modal__item-close");
-const overlayCloseModal = document.querySelectorAll(
-  ".rovo-list-modal--overlay"
-);
-
-const handleGSAPModalAnimation = (element, transformValue, duration) => {
+function handleGSAPModalAnimation(element, transformValue, duration) {
   const modalTimeLine = new TimelineMax({ paused: true });
   const modalAnimation = modalTimeLine.to(element, {
     duration,
@@ -12,10 +6,10 @@ const handleGSAPModalAnimation = (element, transformValue, duration) => {
   });
 
   modalAnimation.play();
-};
+}
 
-const handleOpenModal = (element) => {
-  element.forEach((el) => {
+function handleOpenModal() {
+  document.querySelectorAll(".rovo-list__item-content").forEach((el) => {
     el.addEventListener("click", () => {
       // modal animation
       const modal = el.parentElement.querySelector(".rovo-list-modal");
@@ -36,10 +30,10 @@ const handleOpenModal = (element) => {
       pillsTargetContainer && pillsTargetContainer.append(clonePills);
     });
   });
-};
+}
 
-const handleCloseModalByClickingOnOverlay = (element) => {
-  element.forEach((el) => {
+function handleCloseModalByClickingOnOverlay() {
+  document.querySelectorAll(".rovo-list-modal--overlay").forEach((el) => {
     el.addEventListener("click", () => {
       // only applied on containers that has pills
       const clonedPills = el
@@ -59,10 +53,10 @@ const handleCloseModalByClickingOnOverlay = (element) => {
       document.querySelector("html").classList.remove("overflow-hidden");
     });
   });
-};
+}
 
-const handleCloseModalFromCloseButton = (element) => {
-  element.forEach((el) => {
+function handleCloseModalFromCloseButton() {
+  document.querySelectorAll(".rovo-list-modal__item-close").forEach((el) => {
     el.addEventListener("click", () => {
       // only applied on containers that has pills
       const clonedPills = el
@@ -82,8 +76,8 @@ const handleCloseModalFromCloseButton = (element) => {
       document.querySelector("html").classList.remove("overflow-hidden");
     });
   });
-};
+}
 
-handleOpenModal(btnOpenModal);
-handleCloseModalByClickingOnOverlay(overlayCloseModal);
-handleCloseModalFromCloseButton(btnCloseModal);
+handleCloseModalByClickingOnOverlay();
+handleCloseModalFromCloseButton();
+handleOpenModal();
