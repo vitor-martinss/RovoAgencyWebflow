@@ -39,13 +39,27 @@ function handleLeaveAboutOrContactPage(currentContainer) {
   );
 
   gsap.to(navWrapper, {
-    duration: 0.5,
+    duration: 0.2,
     opacity: 0
   });
 }
 
 function handleEnterAboutOrContactPage(currentContainer) {
-  //const firstElementsOnPage = currentContainer.querySelector(".rovo-jumbotron");
+  const firstElementToFadeIn = currentContainer.querySelector(
+    ".rovo-jumbotron__content"
+  );
+  const secondElementToFadeIn = currentContainer.querySelector(
+    ".rovo-jumbotron__figure"
+  );
+
+  firstElementToFadeIn.setAttribute("data-aos", "fade-up");
+  firstElementToFadeIn.setAttribute("data-aos-duration", "300");
+  firstElementToFadeIn.setAttribute("data-aos-offset", "0");
+
+  secondElementToFadeIn.setAttribute("data-aos", "fade-up");
+  secondElementToFadeIn.setAttribute("data-aos-duration", "300");
+  secondElementToFadeIn.setAttribute("data-aos-delay", "300");
+  secondElementToFadeIn.setAttribute("data-aos-offset", "0");
 
   // fade out rovo-header-anchor__nav-wrapper
   const navWrapper = currentContainer.querySelector(
@@ -54,7 +68,7 @@ function handleEnterAboutOrContactPage(currentContainer) {
 
   gsap.to(navWrapper, {
     opacity: 1,
-    duration: 0.1
+    duration: 0.5
   });
 
   gsap.to(currentContainer, {
@@ -74,8 +88,6 @@ function applyNewScript(src) {
 }
 
 barba.hooks.before(() => {
-  window.Webflow && window.Webflow.destroy();
-  window.scrollTo(0, 0);
   document.body.classList.add("overflow-hidden");
   document.querySelector("html").classList.add("overflow-hidden");
 });
@@ -118,7 +130,7 @@ function handleDesktopPageTransitions() {
             //call page transition function
             handleLeaveAboutOrContactPage(current.container);
             //give a small delayTransition
-            await delayTransition(500);
+            await delayTransition(300);
             done();
           },
           async enter({ next }) {
