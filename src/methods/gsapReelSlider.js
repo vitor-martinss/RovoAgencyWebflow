@@ -80,7 +80,7 @@ function handleSwitchAssetsOnChange(element) {
 }
 
 let activeElement;
-setTimeout(() => {
+function initReelAnimation() {
   const loop = horizontalLoop(boxes, {
     paused: false,
     repeat: -1,
@@ -97,7 +97,17 @@ setTimeout(() => {
   loop.toIndex(0, {
     duration: 0
   });
-}, 3000);
+}
+
+if (sessionStorage.getItem("homeAnimation") === "true") {
+  initReelAnimation();
+} else {
+  setTimeout(() => {
+    initReelAnimation();
+  }, 3300);
+}
+
+
 
 /*
 This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
