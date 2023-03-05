@@ -45,22 +45,6 @@ function handleLeaveAboutOrContactPage(currentContainer) {
 }
 
 function handleEnterAboutOrContactPage(currentContainer) {
-  const firstElementToFadeIn = currentContainer.querySelector(
-    ".rovo-jumbotron__content"
-  );
-  const secondElementToFadeIn = currentContainer.querySelector(
-    ".rovo-jumbotron__figure"
-  );
-
-  firstElementToFadeIn.setAttribute("data-aos", "fade-up");
-  firstElementToFadeIn.setAttribute("data-aos-duration", "300");
-  firstElementToFadeIn.setAttribute("data-aos-offset", "0");
-
-  secondElementToFadeIn.setAttribute("data-aos", "fade-up");
-  secondElementToFadeIn.setAttribute("data-aos-duration", "300");
-  secondElementToFadeIn.setAttribute("data-aos-delay", "300");
-  secondElementToFadeIn.setAttribute("data-aos-offset", "0");
-
   // fade out rovo-header-anchor__nav-wrapper
   const navWrapper = currentContainer.querySelector(
     ".rovo-header-anchor__list"
