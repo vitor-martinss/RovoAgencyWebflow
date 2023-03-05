@@ -45,22 +45,6 @@ function handleLeaveAboutOrContactPage(currentContainer) {
 }
 
 function handleEnterAboutOrContactPage(currentContainer) {
-  // const firstElementToFadeIn = currentContainer.querySelector(
-  //   ".rovo-jumbotron__content"
-  // );
-  // const secondElementToFadeIn = currentContainer.querySelector(
-  //   ".rovo-jumbotron__figure"
-  // );
-  data-aos-once
-  // firstElementToFadeIn.setAttribute("data-aos", "fade-up");
-  // firstElementToFadeIn.setAttribute("data-aos-duration", "300");
-  // firstElementToFadeIn.setAttribute("data-aos-offset", "0");
-
-  // secondElementToFadeIn.setAttribute("data-aos", "fade-up");
-  // secondElementToFadeIn.setAttribute("data-aos-duration", "300");
-  // secondElementToFadeIn.setAttribute("data-aos-delay", "300");
-  // secondElementToFadeIn.setAttribute("data-aos-offset", "0");
-
   // fade out rovo-header-anchor__nav-wrapper
   const navWrapper = currentContainer.querySelector(
     ".rovo-header-anchor__list"
@@ -101,9 +85,12 @@ barba.hooks.after(({ next }) => {
     "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js",
     "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js",
     "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js",
+    "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Draggable.min.js",
     "https://unpkg.com/aos@2.3.1/dist/aos.js",
     "https://cdn.jsdelivr.net/npm/@barba/core",
     "https://jz2oq8.csb.app/src/methods/helper.js",
+    "https://jz2oq8.csb.app/src/methods/homeInitialAnimation.js",
+    "https://jz2oq8.csb.app/src/methods/gsapReelSlider.js",
     "https://jz2oq8.csb.app/src/methods/asideHeaderHeightOnScroll.js",
     "https://jz2oq8.csb.app/src/methods/anchorScrollTo.js",
     "https://jz2oq8.csb.app/src/methods/toggleMenuMobile.js",
@@ -114,6 +101,7 @@ barba.hooks.after(({ next }) => {
     "https://jz2oq8.csb.app/src/methods/swiperDefaultSlider.js"
   ];
   customLinks.map((el) => applyNewScript(el));
+
   window.scrollTo(0, 0);
   resetWebflow(next);
 });
@@ -124,7 +112,7 @@ function handleDesktopPageTransitions() {
       transitions: [
         {
           name: "curtain-transition",
-          // to: ["contact", "about"],
+          to: ["contact", "about"],
           async leave({ current }) {
             const done = this.async();
             //call page transition function
