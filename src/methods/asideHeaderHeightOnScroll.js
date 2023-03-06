@@ -1,4 +1,8 @@
 function handleAsideHeaderHeightOnScroll() {
+  if (!document.querySelector("footer")) {
+    return null;
+  }
+
   if (window.innerWidth >= 768) {
     const footerTop = document.querySelector("footer").getBoundingClientRect()
       .top;
