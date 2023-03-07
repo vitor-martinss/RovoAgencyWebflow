@@ -282,20 +282,12 @@ function barbaJSPageTransitions() {
     }
   };
 
-  const selfTransition = {
-    name: 'self',
-    enter() {
-      handleLeaveTransition(current.container, "default");
-    },
-  }
-
   barba.init({
     preventRunning: true,
     transitions: [
       defaultCurtainTransition,
       homeCurtainTransition,
-      toHomeTransition,
-      selfTransition
+      toHomeTransition
     ]
   });
 }
