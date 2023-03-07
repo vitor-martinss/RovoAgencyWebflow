@@ -72,6 +72,9 @@ function barbaJSPageTransitions() {
       //keep the logo on screen
       const headerBrandImage = document.querySelector(".rovo-header-brand__image");
       document.querySelectorAll(".rovo-header-brand__image--clone-reel").forEach((el) => el.remove())
+      document
+        .querySelectorAll(".rovo-header-mobile__btn--clone-reel")
+        .forEach((el) => el.remove());
       headerBrandImage.style.opacity = 1
       const headerDesktopNav = currentContainer.querySelector(
         ".rovo-reels-header__nav"
@@ -115,8 +118,21 @@ function barbaJSPageTransitions() {
       document
         .querySelectorAll(".rovo-header-brand__image--clone-reel")
         .forEach((el) => el.remove());
+
+      document
+        .querySelectorAll(".rovo-header-mobile__btn--clone-reel")
+        .forEach((el) => el.remove());
       headerBrandImage.style.opacity = 1
       document.querySelector('.rovo-header-anchor').style.background = "white"
+    }, 1000);
+  }
+
+  function handleAfterTransitionToHomePage() {
+    // remove fake logo of transition
+    setTimeout(() => {
+      document
+        .querySelectorAll(".rovo-header-mobile__btn--clone-reel")
+        .forEach((el) => el.remove());
     }, 1000);
   }
 
@@ -135,6 +151,13 @@ function barbaJSPageTransitions() {
       headerBrandImage.style.opacity = 0
       clonedHeaderBrandImage.classList.add("rovo-header-brand__image--clone-reel");
       document.body.appendChild(clonedHeaderBrandImage);
+
+      if (window.innerWidth < 768) {
+        const mobileMenuBtn = document.querySelector(".rovo-header-mobile__btn");
+        const clonedMenuBtn = mobileMenuBtn.cloneNode(true);
+        clonedMenuBtn.classList.add("rovo-header-mobile__btn--clone-reel");
+        document.body.appendChild(clonedMenuBtn);
+      }
     }
   }
 
@@ -224,7 +247,7 @@ function barbaJSPageTransitions() {
       route: ["home"]
     },
     to: {
-      route: ["about", "contact"]
+      route: ["about", "contact", "privacy-policy"]
     },
     async leave({
       current
@@ -279,6 +302,10 @@ function barbaJSPageTransitions() {
       //give a small delayTransition
       await delayTransition(300);
       done();
+    },
+    async after() {
+      //call page transition function
+      handleAfterTransitionToHomePage();
     }
   };
 
