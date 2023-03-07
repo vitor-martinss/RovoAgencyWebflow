@@ -33,3 +33,14 @@
   align-items: center;
   justify-content: center;
 }
+
+.rovo-header-brand__image--clone-reel {
+  position: fixed;
+  left: 30px;
+  top: 30px;
+  z-index: 101;
+}
+
+.rovo-footer-link-list__item:first-of-type {
+  pointer-events: none;
+}

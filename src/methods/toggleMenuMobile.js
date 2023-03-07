@@ -73,7 +73,7 @@ function handleToggleMenuMobile() {
 
         document.body.classList.toggle("overflow-hidden");
 
-        handleGSAPAnimation(navMobile, "translateX(105%)", 0);
+        handleGSAPAnimation(navMobile, "translateX(105%)", 0.3);
       });
     });
   }
