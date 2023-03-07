@@ -206,6 +206,7 @@ function barbaJSPageTransitions() {
     customLinks.map((el) => applyNewScript(el));
 
     window.scrollTo(0, 0);
+    AOS.refresh();
     resetWebflow(next);
   });
 

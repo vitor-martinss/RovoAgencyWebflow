@@ -14,5 +14,4 @@ setTargetOnPrivacyPolicyLinkToSelf();
 AOS.init({
   once: true
 });
-window.addEventListener("load", AOS.refresh);
-
+window.addEventListener("load", AOS.refresh());
