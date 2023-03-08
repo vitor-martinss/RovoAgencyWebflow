@@ -1,5 +1,6 @@
 function barbaJSPageTransitions() {
-  const myRoutes = [{
+  const myRoutes = [
+    {
       path: "/",
       name: "home"
     },
@@ -58,6 +59,57 @@ function barbaJSPageTransitions() {
     });
   }
 
+  function gsapFadeInAnimation() {
+    const staticFadeInAnimation = gsap.utils.toArray(
+      '[data-static-gsap="fade-in"]'
+    );
+    staticFadeInAnimation.forEach((staticFadeIn, i) => {
+      let delayedAnimation = 0;
+      if (staticFadeIn.hasAttribute("data-gsap-delay")) {
+        delayedAnimation =
+          Number(staticFadeIn.getAttribute("data-gsap-delay")) / 1000;
+      }
+
+      gsap.fromTo(
+        staticFadeIn,
+        {
+          autoAlpha: 0
+        },
+        {
+          duration: 0.5,
+          autoAlpha: 1,
+          delay: delayedAnimation
+        }
+      );
+    });
+  }
+
+  function gsapScrollTriggerFadeUp() {
+    const fadeUpContainer = gsap.utils.toArray('[data-gsap="fade-up"]');
+
+    fadeUpContainer.forEach((fadeUp, i) => {
+      const animationFadeUp = gsap.fromTo(
+        fadeUp,
+        {
+          autoAlpha: 0,
+          y: 50
+        },
+        {
+          duration: 0.5,
+          autoAlpha: 1,
+          y: 0
+        }
+      );
+      ScrollTrigger.create({
+        trigger: fadeUp,
+        start: "10% 80%",
+        animation: animationFadeUp,
+        toggleActions: "play none none none",
+        once: true
+      });
+    });
+  }
+
   function fadeOutGSAPAnimation(currentContainer) {
     const main = currentContainer.querySelector("main");
     gsap.to(main, {
@@ -68,14 +120,19 @@ function barbaJSPageTransitions() {
 
   function handleLeaveTransition(currentContainer, fromRoute) {
     if (fromRoute === "home") {
-      document.querySelector('.rovo-header-anchor').style.background = "transparent"
+      document.querySelector(".rovo-header-anchor").style.background =
+        "transparent";
       //keep the logo on screen
-      const headerBrandImage = document.querySelector(".rovo-header-brand__image");
-      document.querySelectorAll(".rovo-header-brand__image--clone-reel").forEach((el) => el.remove())
+      const headerBrandImage = document.querySelector(
+        ".rovo-header-brand__image"
+      );
+      document
+        .querySelectorAll(".rovo-header-brand__image--clone-reel")
+        .forEach((el) => el.remove());
       document
         .querySelectorAll(".rovo-header-mobile__btn--clone-reel")
         .forEach((el) => el.remove());
-      headerBrandImage.style.opacity = 1
+      headerBrandImage.style.opacity = 1;
       const headerDesktopNav = currentContainer.querySelector(
         ".rovo-reels-header__nav"
       );
@@ -83,35 +140,43 @@ function barbaJSPageTransitions() {
     }
 
     if (window.innerWidth >= 768) {
-      curtainGSAPAnimation(currentContainer)
+      curtainGSAPAnimation(currentContainer);
     } else {
-      fadeOutGSAPAnimation(currentContainer)
+      fadeOutGSAPAnimation(currentContainer);
     }
   }
 
   function handleEnterAboutOrContactPage(nextContainer, fromRoute) {
     if (fromRoute === "home") {
       //keep the logo on screen
-      const headerBrandImage = nextContainer.querySelector(".rovo-header-brand__image");
+      const headerBrandImage = nextContainer.querySelector(
+        ".rovo-header-brand__image"
+      );
       // clone the image and add it to the body
       const clonedHeaderBrandImage = headerBrandImage.cloneNode(true);
-      headerBrandImage.style.opacity = 0
-      clonedHeaderBrandImage.classList.add("rovo-header-brand__image--clone-reel");
+      headerBrandImage.style.opacity = 0;
+      clonedHeaderBrandImage.classList.add(
+        "rovo-header-brand__image--clone-reel"
+      );
       document.body.appendChild(clonedHeaderBrandImage);
     }
     const navAnchorRoutes = nextContainer.querySelector(
       ".rovo-header-anchor__routes"
     );
-    navAnchorRoutes.setAttribute("data-aos", "");
+    navAnchorRoutes.setAttribute("data-gsap", "");
   }
 
   function handleAfterTransitionFromHomePage() {
     //keep the logo on screen
-    const headerBrandImage = document.querySelector(".rovo-header-brand__image");
+    const headerBrandImage = document.querySelector(
+      ".rovo-header-brand__image"
+    );
     // clone the image and add it to the body
     const clonedHeaderBrandImage = headerBrandImage.cloneNode(true);
-    headerBrandImage.style.opacity = 0
-    clonedHeaderBrandImage.classList.add("rovo-header-brand__image--clone-reel");
+    headerBrandImage.style.opacity = 0;
+    clonedHeaderBrandImage.classList.add(
+      "rovo-header-brand__image--clone-reel"
+    );
     document.body.appendChild(clonedHeaderBrandImage);
     // remove fake logo of transition
     setTimeout(() => {
@@ -122,8 +187,8 @@ function barbaJSPageTransitions() {
       document
         .querySelectorAll(".rovo-header-mobile__btn--clone-reel")
         .forEach((el) => el.remove());
-      headerBrandImage.style.opacity = 1
-      document.querySelector('.rovo-header-anchor').style.background = "white"
+      headerBrandImage.style.opacity = 1;
+      document.querySelector(".rovo-header-anchor").style.background = "white";
     }, 1000);
   }
 
@@ -141,19 +206,25 @@ function barbaJSPageTransitions() {
     const reelHeaderNav = nextContainer.querySelector(
       ".rovo-reels-header__nav"
     );
-    reelHeaderNav.setAttribute("data-aos", "fade-in");
+    reelHeaderNav.setAttribute("data-gsap", "fade-in");
 
     if (sessionStorage.getItem("homeAnimation") === "true") {
       //keep the logo on screen
-      const headerBrandImage = nextContainer.querySelector(".rovo-header-brand__image");
+      const headerBrandImage = nextContainer.querySelector(
+        ".rovo-header-brand__image"
+      );
       // clone the image and add it to the body
       const clonedHeaderBrandImage = headerBrandImage.cloneNode(true);
-      headerBrandImage.style.opacity = 0
-      clonedHeaderBrandImage.classList.add("rovo-header-brand__image--clone-reel");
+      headerBrandImage.style.opacity = 0;
+      clonedHeaderBrandImage.classList.add(
+        "rovo-header-brand__image--clone-reel"
+      );
       document.body.appendChild(clonedHeaderBrandImage);
 
       if (window.innerWidth < 768) {
-        const mobileMenuBtn = document.querySelector(".rovo-header-mobile__btn");
+        const mobileMenuBtn = document.querySelector(
+          ".rovo-header-mobile__btn"
+        );
         const clonedMenuBtn = mobileMenuBtn.cloneNode(true);
         clonedMenuBtn.classList.add("rovo-header-mobile__btn--clone-reel");
         document.body.appendChild(clonedMenuBtn);
@@ -176,9 +247,7 @@ function barbaJSPageTransitions() {
     document.querySelector("html").classList.add("overflow-hidden");
   });
 
-  barba.hooks.after(({
-    next
-  }) => {
+  barba.hooks.after(({ next }) => {
     document.body.classList.remove("overflow-hidden");
     document.querySelector("html").classList.remove("overflow-hidden");
 
@@ -188,10 +257,10 @@ function barbaJSPageTransitions() {
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js",
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js",
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Draggable.min.js",
-      "https://unpkg.com/aos@2.3.1/dist/aos.js",
       "https://cdn.jsdelivr.net/npm/@barba/core",
       "https://cdn.jsdelivr.net/npm/@barba/router@2.1.10/dist/barba-router.umd.min.js",
       "https://jz2oq8.csb.app/src/methods/helper.js",
+      "https://jz2oq8.csb.app/src/methods/scrollTriggerAnimation.js",
       "https://jz2oq8.csb.app/src/methods/homeInitialAnimation.js",
       "https://jz2oq8.csb.app/src/methods/gsapReelSlider.js",
       "https://jz2oq8.csb.app/src/methods/asideHeaderHeightOnScroll.js",
@@ -204,9 +273,9 @@ function barbaJSPageTransitions() {
       "https://jz2oq8.csb.app/src/methods/swiperDefaultSlider.js"
     ];
     customLinks.map((el) => applyNewScript(el));
-
+    gsapFadeInAnimation();
+    gsapScrollTriggerFadeUp();
     window.scrollTo(0, 0);
-    AOS.refresh();
     resetWebflow(next);
   });
 
@@ -219,9 +288,7 @@ function barbaJSPageTransitions() {
     to: {
       route: ["contact", "about", "privacy-policy"]
     },
-    async leave({
-      current
-    }) {
+    async leave({ current }) {
       const done = this.async();
       //call page transition function
       handleLeaveTransition(current.container, "default");
@@ -229,12 +296,10 @@ function barbaJSPageTransitions() {
       await delayTransition(300);
       done();
     },
-    async enter({
-      next
-    }) {
+    async enter({ next }) {
       const done = this.async();
       //call page transition function
-      handleEnterAboutOrContactPage(next.container, 'default');
+      handleEnterAboutOrContactPage(next.container, "default");
       //give a small delayTransition
       await delayTransition(300);
       done();
@@ -250,9 +315,7 @@ function barbaJSPageTransitions() {
     to: {
       route: ["about", "contact", "privacy-policy"]
     },
-    async leave({
-      current
-    }) {
+    async leave({ current }) {
       const done = this.async();
       //call page transition function
       handleLeaveTransition(current.container, "home");
@@ -260,9 +323,7 @@ function barbaJSPageTransitions() {
       await delayTransition(300);
       done();
     },
-    async enter({
-      next
-    }) {
+    async enter({ next }) {
       const done = this.async();
       //call page transition function
       handleEnterAboutOrContactPage(next.container, "home");
@@ -284,9 +345,7 @@ function barbaJSPageTransitions() {
     to: {
       route: ["home"]
     },
-    async leave({
-      current
-    }) {
+    async leave({ current }) {
       const done = this.async();
       //call page transition function
       handleLeaveTransition(current.container, "default");
@@ -294,9 +353,7 @@ function barbaJSPageTransitions() {
       await delayTransition(300);
       done();
     },
-    async enter({
-      next
-    }) {
+    async enter({ next }) {
       const done = this.async();
       //call page transition function
       handleEnterHomePage(next.container);
@@ -320,7 +377,9 @@ function barbaJSPageTransitions() {
   });
 }
 
-barbaJSPageTransitions();
+window.addEventListener("load", () => {
+  barbaJSPageTransitions();
+});
 
 window.addEventListener("resize", () => {
   barbaJSPageTransitions();
