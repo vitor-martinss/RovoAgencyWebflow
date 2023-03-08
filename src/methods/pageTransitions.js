@@ -272,6 +272,7 @@ function barbaJSPageTransitions() {
       "https://jz2oq8.csb.app/src/methods/scrollTriggerAnimation.js",
       "https://jz2oq8.csb.app/src/methods/homeInitialAnimation.js",
       "https://jz2oq8.csb.app/src/methods/gsapReelSlider.js",
+      "https://jz2oq8.csb.app/src/methods/scrollPinHomeAnimation.js",
       "https://jz2oq8.csb.app/src/methods/asideHeaderHeightOnScroll.js",
       "https://jz2oq8.csb.app/src/methods/anchorScrollTo.js",
       "https://jz2oq8.csb.app/src/methods/toggleMenuMobile.js",
@@ -282,10 +283,18 @@ function barbaJSPageTransitions() {
       "https://jz2oq8.csb.app/src/methods/swiperDefaultSlider.js"
     ];
     customLinks.map((el) => applyNewScript(el));
+
+    gsap.to(window, {
+      duration: 0,
+      scrollTo: {
+        y: 0,
+        offsetY: 0
+      }
+    });
     gsapFadeInAnimation();
     gsapScrollTriggerFadeUp();
     ScrollTrigger.refresh();
-    window.scrollTo(0, 0);
+    gsap.registerPlugin(ScrollToPlugin);
     resetWebflow(next);
   });
 
