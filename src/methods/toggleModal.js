@@ -8,76 +8,83 @@ function handleGSAPModalAnimation(element, transformValue, duration) {
   modalAnimation.play();
 }
 
+function handleCloseModal(element) {
+  document.querySelectorAll(element).forEach((el) => {
+    el.addEventListener("click", () => {
+      // activate scroll
+      ScrollTrigger.normalizeScroll(true);
+
+      // delete cloned pills
+      document
+        .querySelectorAll("rovo-list__item-pills--clone")
+        .forEach((el) => {
+          el.remove();
+        });
+
+      // remove overlay
+      document
+        .querySelectorAll(".rovo-list-modal--overlay--clone")
+        .forEach((el) => el.remove());
+
+      // modal animation
+      document.querySelectorAll(".rovo-list-modal--clone").forEach((el) => {
+        handleGSAPModalAnimation(el, "translateX(105%)", 0.3);
+        setTimeout(() => {
+          el.remove();
+        }, 300);
+      });
+
+      // scroll page
+      document.body.classList.remove("overflow-hidden");
+      document.querySelector("html").classList.remove("overflow-hidden");
+    });
+  });
+}
+
 function handleOpenModal() {
   document.querySelectorAll(".rovo-list__item-content").forEach((el) => {
     el.addEventListener("click", () => {
+      // disable scroll
+      ScrollTrigger.normalizeScroll(false);
+
+      // overlay
+      const overlay = el.parentElement.querySelector(
+        ".rovo-list-modal--overlay"
+      );
+
       // modal animation
       const modal = el.parentElement.querySelector(".rovo-list-modal");
-      handleGSAPModalAnimation(modal, "translateX(0%)", 0.3);
 
-      // responsible for overlay
-      el.parentElement.classList.add("modal-open");
+      const overlayCloned = overlay.cloneNode(true);
+      const modalCloned = modal.cloneNode(true);
+
+      overlayCloned.classList.add("rovo-list-modal--overlay--clone");
+      modalCloned.classList.add("rovo-list-modal--clone");
+
+      // only applied on containers that has pills
+      if (el.querySelector(".rovo-list__item-pills")) {
+        const clonePills = el.lastChild.cloneNode(true);
+        const pillsTargetContainer = modalCloned.querySelector(
+          ".rovo-js-append-pills"
+        );
+
+        clonePills.classList.add("rovo-list__item-pills--clone");
+        pillsTargetContainer.append(clonePills);
+      }
+
+      document.body.appendChild(overlayCloned);
+      document.body.appendChild(modalCloned);
+
+      handleGSAPModalAnimation(modalCloned, "translateX(0%)", 0.3);
 
       // scroll page
       document.body.classList.add("overflow-hidden");
       document.querySelector("html").classList.add("overflow-hidden");
 
-      // only applied on containers that has pills
-      const clonePills = el.lastChild.cloneNode(true);
-      const pillsTargetContainer = el.parentElement.querySelector(
-        ".rovo-js-append-pills"
-      );
-      pillsTargetContainer && pillsTargetContainer.append(clonePills);
+      handleCloseModal(".rovo-list-modal__item-close");
+      handleCloseModal(".rovo-list-modal--overlay--clone");
     });
   });
 }
 
-function handleCloseModalByClickingOnOverlay() {
-  document.querySelectorAll(".rovo-list-modal--overlay").forEach((el) => {
-    el.addEventListener("click", () => {
-      // only applied on containers that has pills
-      const clonedPills = el
-        .closest(".modal-open")
-        .querySelector(".rovo-js-append-pills");
-      clonedPills && clonedPills.lastChild.remove();
-
-      // responsible for overlay
-      el.closest(".rovo-list__item.modal-open").classList.remove("modal-open");
-
-      // modal animation
-      const modal = el.parentNode.querySelector(".rovo-list-modal");
-      handleGSAPModalAnimation(modal, "translateX(105%)", 0.3);
-
-      // scroll page
-      document.body.classList.remove("overflow-hidden");
-      document.querySelector("html").classList.remove("overflow-hidden");
-    });
-  });
-}
-
-function handleCloseModalFromCloseButton() {
-  document.querySelectorAll(".rovo-list-modal__item-close").forEach((el) => {
-    el.addEventListener("click", () => {
-      // only applied on containers that has pills
-      const clonedPills = el
-        .closest(".modal-open")
-        .querySelector(".rovo-js-append-pills");
-      clonedPills && clonedPills.lastChild.remove();
-
-      // responsible for overlay
-      el.closest(".rovo-list__item.modal-open").classList.remove("modal-open");
-
-      // modal animation
-      const modal = el.closest(".rovo-list-modal");
-      handleGSAPModalAnimation(modal, "translateX(105%)", 0.3);
-
-      // scroll page
-      document.body.classList.remove("overflow-hidden");
-      document.querySelector("html").classList.remove("overflow-hidden");
-    });
-  });
-}
-
-handleCloseModalByClickingOnOverlay();
-handleCloseModalFromCloseButton();
 handleOpenModal();

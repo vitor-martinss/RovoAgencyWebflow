@@ -52,12 +52,6 @@
     justify-content: flex-end;
   }
 
-  /* modal overlay */
-  .modal-open>.rovo-list-modal--overlay {
-    display: block;
-    opacity: 1;
-  }
-
   /* responsible for make sliders touch screen on the right */
   .rovo-slider-numbers {
     width: calc(100% + 1.5625rem);
