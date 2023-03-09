@@ -137,14 +137,16 @@ function barbaJSPageTransitions() {
         ".rovo-reels-header__nav"
       );
       headerDesktopNav.remove();
+    } else {
+      const navWrapper = currentContainer.querySelector(
+        ".rovo-header-anchor__list"
+      );
+  
+      gsap.set(navWrapper, {
+        opacity: 0
+      });
     }
-    const navWrapper = currentContainer.querySelector(
-      ".rovo-header-anchor__list"
-    );
-
-    gsap.set(navWrapper, {
-      opacity: 0
-    });
+    
 
     if (window.innerWidth >= 768) {
       curtainGSAPAnimation(currentContainer);
