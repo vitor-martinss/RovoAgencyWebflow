@@ -141,12 +141,11 @@ function barbaJSPageTransitions() {
       const navWrapper = currentContainer.querySelector(
         ".rovo-header-anchor__list"
       );
-  
+
       gsap.set(navWrapper, {
         opacity: 0
       });
     }
-    
 
     if (window.innerWidth >= 768) {
       curtainGSAPAnimation(currentContainer);
@@ -255,6 +254,7 @@ function barbaJSPageTransitions() {
   }
 
   barba.hooks.before(() => {
+    bodyScrollLock.clearBodyLocks();
     document.body.classList.add("overflow-hidden");
     document.querySelector("html").classList.add("overflow-hidden");
   });
@@ -297,6 +297,7 @@ function barbaJSPageTransitions() {
     gsapFadeInAnimation();
     gsapScrollTriggerFadeUp();
     ScrollTrigger.refresh();
+    bodyScrollLock.clearBodyLocks();
     gsap.registerPlugin(ScrollToPlugin);
     resetWebflow(next);
   });
