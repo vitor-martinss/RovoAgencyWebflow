@@ -2,14 +2,59 @@ function gsapReelSlider() {
   const selectors = {
     mainContainer: document.getElementById("rovo-reels-main"),
     thumbnailContainer: document.querySelector(".rovo-reels-thumbnail"),
-    thumbnailFakeBackground: document.querySelector(".rovo-reels-thumbnail-background"),
+    thumbnailFakeBackground: document.querySelector(
+      ".rovo-reels-thumbnail-background"
+    ),
     thumbnailItemToArray: gsap.utils.toArray(".rovo-reels__list-item")
-  }
+  };
 
   let activeElement;
 
   if (!selectors.mainContainer) {
     return null;
+  }
+
+  function handleMouseMoveOnDesktop() {
+    function fadeInMouseMove() {
+      gsap.to(".rovo-reel-footer", {
+        opacity: 1,
+        duration: 0.3
+      });
+    }
+
+    function fadeOutMouseMove() {
+      gsap.to(".rovo-reel-footer", {
+        opacity: 0,
+        duration: 0.3,
+        delay: 0.4
+      });
+    }
+
+    let mouseMoveTimer;
+    let isMouseDown = false;
+
+    // Set up the mousemove event listener
+    document.addEventListener("mousedown", () => {
+      isMouseDown = true;
+      fadeInMouseMove();
+      clearTimeout(mouseMoveTimer);
+      mouseMoveTimer = setTimeout(fadeInMouseMove, 0);
+    });
+
+    document.addEventListener("mouseup", () => {
+      isMouseDown = false;
+      clearTimeout(mouseMoveTimer);
+      mouseMoveTimer = setTimeout(fadeOutMouseMove, 1000);
+    });
+
+    // Set up the mousemove event listener
+    document.addEventListener("mousemove", () => {
+      if (!isMouseDown) {
+        fadeInMouseMove();
+        clearTimeout(mouseMoveTimer);
+        mouseMoveTimer = setTimeout(fadeOutMouseMove, 1000);
+      }
+    });
   }
 
   function handleFakeBackground() {
@@ -22,7 +67,6 @@ function gsapReelSlider() {
   }
 
   function handleSwitchAssetsOnChange(element) {
-
     if (activeElement) {
       activeElement.classList.remove("active");
       selectors.mainContainer.innerHTML = "";
@@ -63,7 +107,10 @@ function gsapReelSlider() {
       }
     }
 
-    if (activeElementVideoMP4SourceDesktop || activeElementVideoMP4SourceMobile) {
+    if (
+      activeElementVideoMP4SourceDesktop ||
+      activeElementVideoMP4SourceMobile
+    ) {
       if (window.innerWidth >= 768) {
         assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline>
           <source src="${activeElementVideoWEBMSourceDesktop}" type="video/webm">
@@ -121,7 +168,8 @@ function gsapReelSlider() {
       lastIndex = 0,
       tl = gsap.timeline({
         repeat: config.repeat,
-        onUpdate: onChange &&
+        onUpdate:
+          onChange &&
           function () {
             let i = tl.closestIndex();
             if (lastIndex !== i) {
@@ -133,7 +181,8 @@ function gsapReelSlider() {
         defaults: {
           ease: "none"
         },
-        onReverseComplete: () => tl.totalTime(tl.rawTime() + tl.duration() * 100)
+        onReverseComplete: () =>
+          tl.totalTime(tl.rawTime() + tl.duration() * 100)
       }),
       length = items.length,
       startX = items[0].offsetLeft,
@@ -145,21 +194,22 @@ function gsapReelSlider() {
       indexIsDirty = false,
       center = config.center,
       pixelsPerSecond = (config.speed || 1) * 100,
-      snap = config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1), // some browsers shift by a pixel to accommodate flex layouts, so for example if width is 20% the first element's width might be 242px, and the next 243px, alternating back and forth. So we snap to 5 percentage points to make things look more natural
+      snap =
+        config.snap === false ? (v) => v : gsap.utils.snap(config.snap || 1), // some browsers shift by a pixel to accommodate flex layouts, so for example if width is 20% the first element's width might be 242px, and the next 243px, alternating back and forth. So we snap to 5 percentage points to make things look more natural
       timeOffset = 0,
       container =
-      center === true ?
-      items[0].parentNode :
-      gsap.utils.toArray(center)[0] || items[0].parentNode,
+        center === true
+          ? items[0].parentNode
+          : gsap.utils.toArray(center)[0] || items[0].parentNode,
       totalWidth,
       getTotalWidth = () =>
-      items[length - 1].offsetLeft +
-      (xPercents[length - 1] / 100) * widths[length - 1] -
-      startX +
-      spaceBefore[0] +
-      items[length - 1].offsetWidth *
-      gsap.getProperty(items[length - 1], "scaleX") +
-      (parseFloat(config.paddingRight) || 0),
+        items[length - 1].offsetLeft +
+        (xPercents[length - 1] / 100) * widths[length - 1] -
+        startX +
+        spaceBefore[0] +
+        items[length - 1].offsetWidth *
+          gsap.getProperty(items[length - 1], "scaleX") +
+        (parseFloat(config.paddingRight) || 0),
       populateWidths = () => {
         let b1 = container.getBoundingClientRect(),
           b2;
@@ -167,7 +217,7 @@ function gsapReelSlider() {
           widths[i] = parseFloat(gsap.getProperty(el, "width", "px"));
           xPercents[i] = snap(
             (parseFloat(gsap.getProperty(el, "x", "px")) / widths[i]) * 100 +
-            gsap.getProperty(el, "xPercent")
+              gsap.getProperty(el, "xPercent")
           );
           b2 = el.getBoundingClientRect();
           spaceBefore[i] = b2.left - (i ? b1.right : b1.left);
@@ -181,15 +231,15 @@ function gsapReelSlider() {
       },
       timeWrap,
       populateOffsets = () => {
-        timeOffset = center ?
-          (tl.duration() * (container.offsetWidth / 2)) / totalWidth :
-          0;
+        timeOffset = center
+          ? (tl.duration() * (container.offsetWidth / 2)) / totalWidth
+          : 0;
         center &&
           times.forEach((t, i) => {
             times[i] = timeWrap(
               tl.labels["label" + i] +
-              (tl.duration() * widths[i]) / 2 / totalWidth -
-              timeOffset
+                (tl.duration() * widths[i]) / 2 / totalWidth -
+                timeOffset
             );
           });
       },
@@ -220,20 +270,24 @@ function gsapReelSlider() {
           distanceToLoop =
             distanceToStart + widths[i] * gsap.getProperty(item, "scaleX");
           tl.to(
-              item, {
-                xPercent: snap(((curX - distanceToLoop) / widths[i]) * 100),
-                duration: distanceToLoop / pixelsPerSecond
-              },
-              0
-            )
+            item,
+            {
+              xPercent: snap(((curX - distanceToLoop) / widths[i]) * 100),
+              duration: distanceToLoop / pixelsPerSecond
+            },
+            0
+          )
             .fromTo(
-              item, {
+              item,
+              {
                 xPercent: snap(
                   ((curX - distanceToLoop + totalWidth) / widths[i]) * 100
                 )
-              }, {
+              },
+              {
                 xPercent: xPercents[i],
-                duration: (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
+                duration:
+                  (curX - distanceToLoop + totalWidth - curX) / pixelsPerSecond,
                 immediateRender: false
               },
               distanceToLoop / pixelsPerSecond
@@ -249,9 +303,9 @@ function gsapReelSlider() {
         populateWidths();
         deep && populateTimeline();
         populateOffsets();
-        deep && tl.draggable ?
-          tl.time(times[curIndex], true) :
-          tl.progress(progress, true);
+        deep && tl.draggable
+          ? tl.time(times[curIndex], true)
+          : tl.progress(progress, true);
       },
       proxy;
     gsap.set(items, {
@@ -280,9 +334,9 @@ function gsapReelSlider() {
       curIndex = newIndex;
       vars.overwrite = true;
       gsap.killTweensOf(proxy);
-      return vars.duration === 0 ?
-        tl.time(timeWrap(time)) :
-        tl.tweenTo(time, vars);
+      return vars.duration === 0
+        ? tl.time(timeWrap(time))
+        : tl.tweenTo(time, vars);
     }
     tl.next = (vars) => toIndex(tl.current() + 1, vars);
     tl.previous = (vars) => toIndex(tl.current() - 1, vars);
@@ -310,9 +364,9 @@ function gsapReelSlider() {
         draggable,
         dragSnap,
         align = () =>
-        tl.progress(
-          wrap(startProgress + (draggable.startX - draggable.x) * ratio)
-        ),
+          tl.progress(
+            wrap(startProgress + (draggable.startX - draggable.x) * ratio)
+          ),
         syncIndex = () => tl.closestIndex(true);
       draggable = Draggable.create(proxy, {
         trigger: items[0].parentNode,
@@ -356,7 +410,16 @@ function gsapReelSlider() {
 
   // init
   handleFakeBackground();
-  window.addEventListener("resize", () => handleFakeBackground());
+
+  if (window.innerWidth > 1024) {
+    handleMouseMoveOnDesktop();
+  }
+  window.addEventListener("resize", () => {
+    handleFakeBackground();
+    if (window.innerWidth > 1024) {
+      handleMouseMoveOnDesktop();
+    }
+  });
 
   if (sessionStorage.getItem("homeAnimation") === "true") {
     initReelAnimation();
@@ -367,4 +430,4 @@ function gsapReelSlider() {
   }
 }
 
-gsapReelSlider()
+gsapReelSlider();
