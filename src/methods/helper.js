@@ -9,4 +9,14 @@ function setTargetOnPrivacyPolicyLinkToSelf() {
     }
   });
 }
+
+function removeExtraElementsOnMobileHomepage() {
+  if (window.innerWidth < 768) {
+    return null
+  }
+
+  document.querySelector('#rovo-home-about') &&  document.querySelector('#rovo-home-about').remove()
+  document.querySelector('#rovo-home-contact') && document.querySelector('#rovo-home-contact').remove()
+}
+removeExtraElementsOnMobileHomepage()
 setTargetOnPrivacyPolicyLinkToSelf();

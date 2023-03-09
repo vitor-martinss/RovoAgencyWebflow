@@ -1,5 +1,6 @@
 function barbaJSPageTransitions() {
-  const myRoutes = [{
+  const myRoutes = [
+    {
       path: "/",
       name: "home"
     },
@@ -70,9 +71,11 @@ function barbaJSPageTransitions() {
       }
 
       gsap.fromTo(
-        staticFadeIn, {
+        staticFadeIn,
+        {
           autoAlpha: 0
-        }, {
+        },
+        {
           duration: 0.5,
           autoAlpha: 1,
           delay: delayedAnimation
@@ -86,10 +89,12 @@ function barbaJSPageTransitions() {
 
     fadeUpContainer.forEach((fadeUp, i) => {
       const animationFadeUp = gsap.fromTo(
-        fadeUp, {
+        fadeUp,
+        {
           autoAlpha: 0,
           y: 50
-        }, {
+        },
+        {
           duration: 0.5,
           autoAlpha: 1,
           y: 0
@@ -139,7 +144,7 @@ function barbaJSPageTransitions() {
 
     gsap.set(navWrapper, {
       opacity: 0
-    })
+    });
 
     if (window.innerWidth >= 768) {
       curtainGSAPAnimation(currentContainer);
@@ -167,10 +172,8 @@ function barbaJSPageTransitions() {
     );
     navAnchorRoutes.setAttribute("data-static-gsap", "");
     //fade out rovo-header-anchor__nav-wrapper
-    const navWrapper = nextContainer.querySelector(
-      ".rovo-header-anchor__list"
-    );
-    navWrapper.style.opacity = 0
+    const navWrapper = nextContainer.querySelector(".rovo-header-anchor__list");
+    navWrapper.style.opacity = 0;
   }
 
   function handleAfterTransitionFromHomePage() {
@@ -254,9 +257,7 @@ function barbaJSPageTransitions() {
     document.querySelector("html").classList.add("overflow-hidden");
   });
 
-  barba.hooks.after(({
-    next
-  }) => {
+  barba.hooks.after(({ next }) => {
     document.body.classList.remove("overflow-hidden");
     document.querySelector("html").classList.remove("overflow-hidden");
 
@@ -272,7 +273,6 @@ function barbaJSPageTransitions() {
       "https://jz2oq8.csb.app/src/methods/scrollTriggerAnimation.js",
       "https://jz2oq8.csb.app/src/methods/homeInitialAnimation.js",
       "https://jz2oq8.csb.app/src/methods/gsapReelSlider.js",
-      "https://jz2oq8.csb.app/src/methods/scrollPinHomeAnimation.js",
       "https://jz2oq8.csb.app/src/methods/asideHeaderHeightOnScroll.js",
       "https://jz2oq8.csb.app/src/methods/anchorScrollTo.js",
       "https://jz2oq8.csb.app/src/methods/toggleMenuMobile.js",
@@ -300,15 +300,14 @@ function barbaJSPageTransitions() {
 
   const defaultCurtainTransition = {
     name: "default-curtain-transition",
+    sync: true,
     from: {
       route: ["contact", "about", "privacy-policy"]
     },
     to: {
       route: ["contact", "about", "privacy-policy"]
     },
-    async leave({
-      current
-    }) {
+    async leave({ current }) {
       const done = this.async();
       //call page transition function
       handleLeaveTransition(current.container, "default");
@@ -316,14 +315,12 @@ function barbaJSPageTransitions() {
       await delayTransition(300);
       done();
     },
-    async enter({
-      next
-    }) {
+    async enter({ next }) {
       const done = this.async();
       //call page transition function
       handleEnterAboutOrContactPage(next.container, "default");
       //give a small delayTransition
-      await delayTransition(500);
+      await delayTransition(300);
       done();
     }
   };
@@ -337,9 +334,7 @@ function barbaJSPageTransitions() {
     to: {
       route: ["about", "contact", "privacy-policy"]
     },
-    async leave({
-      current
-    }) {
+    async leave({ current }) {
       const done = this.async();
       //call page transition function
       handleLeaveTransition(current.container, "home");
@@ -347,9 +342,7 @@ function barbaJSPageTransitions() {
       await delayTransition(300);
       done();
     },
-    async enter({
-      next
-    }) {
+    async enter({ next }) {
       const done = this.async();
       //call page transition function
       handleEnterAboutOrContactPage(next.container, "home");
@@ -365,15 +358,14 @@ function barbaJSPageTransitions() {
 
   const toHomeTransition = {
     name: "enter-home-curtain-transition",
+
     from: {
       route: ["contact", "about", "privacy-policy"]
     },
     to: {
       route: ["home"]
     },
-    async leave({
-      current
-    }) {
+    async leave({ current }) {
       const done = this.async();
       //call page transition function
       handleLeaveTransition(current.container, "default");
@@ -381,9 +373,7 @@ function barbaJSPageTransitions() {
       await delayTransition(300);
       done();
     },
-    async enter({
-      next
-    }) {
+    async enter({ next }) {
       const done = this.async();
       //call page transition function
       handleEnterHomePage(next.container);
