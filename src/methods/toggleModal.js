@@ -29,12 +29,14 @@ function handleCloseModal(element) {
       // modal animation
       document.querySelectorAll(".rovo-list-modal--clone").forEach((el) => {
         handleGSAPModalAnimation(el, "translateX(105%)", 0.3);
+
         setTimeout(() => {
           el.remove();
         }, 300);
       });
 
       // scroll page
+      bodyScrollLock.clearBodyLocks();
       document.body.classList.remove("overflow-hidden");
       document.querySelector("html").classList.remove("overflow-hidden");
     });
@@ -77,7 +79,10 @@ function handleOpenModal() {
 
       handleGSAPModalAnimation(modalCloned, "translateX(0%)", 0.3);
 
-      // scroll page
+      // avoid scroll the page
+      bodyScrollLock.lock(document.querySelector("main"));
+      bodyScrollLock.unlock(modalCloned);
+
       document.body.classList.add("overflow-hidden");
       document.querySelector("html").classList.add("overflow-hidden");
 

@@ -265,6 +265,7 @@ function barbaJSPageTransitions() {
 
     const customLinks = [
       "https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js",
+      "https://cdn.jsdelivr.net/npm/tua-body-scroll-lock",
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js",
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js",
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollToPlugin.min.js",
