@@ -15,7 +15,14 @@ function gsapReelSlider() {
   }
 
   function handleMouseMoveOnDesktop() {
+    if (!document.querySelector(".rovo-reel-footer")) {
+      return;
+    }
+
     function fadeInMouseMove() {
+      if (!document.querySelector(".rovo-reel-footer")) {
+        return;
+      }
       gsap.to(".rovo-reel-footer", {
         opacity: 1,
         duration: 0.3
@@ -23,6 +30,9 @@ function gsapReelSlider() {
     }
 
     function fadeOutMouseMove() {
+      if (!document.querySelector(".rovo-reel-footer")) {
+        return;
+      }
       gsap.to(".rovo-reel-footer", {
         opacity: 0,
         duration: 0.3,
