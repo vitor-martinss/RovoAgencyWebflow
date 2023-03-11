@@ -1,17 +1,50 @@
-.rovo-reels-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.rovo-reels-full {
+  display: flex;
 }
 
+.rovo-reels-image,
 .rovo-reels-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin: 0 auto;
+  max-width: none;
+  object-position: center;
+  position: relative;
+  display: none;
 }
 
-@media (min-width: 992px) {
-  .rovo-reels-video {
+.rovo-reels-video.active,
+.rovo-reels-image.active {
+  display: block;
+  position: absolute;
+  z-index: 1;
+}
+
+/* Responsible for strecth images  */
+@media (min-width: 1080px) {
+  .rovo-reels-image {
+    width: none;
+    height: 100%;
     object-fit: contain;
+    margin: 0 auto;
+    object-position: center;
+  }
+
+  .rovo-reels-video {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    margin: 0 auto;
+    object-position: center;
+  }
+  .rovo-reels-image[alt^="full-screen"] {
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .rovo-reels-video[alt^="full-screen"] {
+    object-fit: cover;
+    width: 100%;
   }
 }

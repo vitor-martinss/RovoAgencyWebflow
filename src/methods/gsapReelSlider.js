@@ -79,10 +79,48 @@ function gsapReelSlider() {
   function handleSwitchAssetsOnChange(element) {
     if (activeElement) {
       activeElement.classList.remove("active");
-      selectors.mainContainer.innerHTML = "";
+      const previousElementAltAttribute = activeElement
+        .querySelector(".rovo-slider-thumbnail__image")
+        .getAttribute("alt");
+
+      const previousFullScreenAsset = selectors.mainContainer.querySelector(
+        `[alt="${previousElementAltAttribute}"]`
+      );
+      previousFullScreenAsset.classList.remove("active");
     }
 
     element.classList.add("active");
+    const activeElementAltAttribute = element
+      .querySelector(".rovo-slider-thumbnail__image")
+      .getAttribute("alt");
+
+    const fullScreenAsset = selectors.mainContainer.querySelector(
+      `[alt="${activeElementAltAttribute}"]`
+    );
+    fullScreenAsset.classList.add("active");
+    activeElement = element;
+  }
+
+  function initReelAnimation() {
+    const loop = horizontalLoop(selectors.thumbnailItemToArray, {
+      paused: false,
+      repeat: -1,
+      speed: 0.18,
+      draggable: true, // make it draggable
+      center: true, // active element is the one in the center of the container rather than th left edge
+      onChange: (element, index) => {
+        // when the active element changes, this function gets called.
+        handleSwitchAssetsOnChange(element);
+      }
+    });
+
+    // in case you change center prop to false, remove the line below.
+    loop.toIndex(0, {
+      duration: 0
+    });
+  }
+
+  selectors.thumbnailItemToArray.forEach((element) => {
     const activeElementSource = element.querySelector(".rovo-main-source");
     const activeElementImageSourceDesktop = activeElementSource.getAttribute(
       "data-image-src-desktop"
@@ -122,44 +160,31 @@ function gsapReelSlider() {
       activeElementVideoMP4SourceMobile
     ) {
       if (window.innerWidth >= 768) {
-        assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline>
+        assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline alt="${activeElementSource.getAttribute(
+          "data-image-description"
+        )}">
           <source src="${activeElementVideoWEBMSourceDesktop}" type="video/webm">
           <source src="${activeElementVideoMP4SourceDesktop}" type="video/mp4">
         </video>`;
       } else {
-        assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline>
+        assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline alt="${activeElementSource.getAttribute(
+          "data-image-description"
+        )}">
         <source src="${activeElementVideoWEBMSourceMobile}" type="video/webm">
         <source src="${activeElementVideoMP4SourceMobile}" type="video/mp4">
       </video>`;
       }
     }
 
-    selectors.mainContainer.innerHTML = assetComponentAppend;
-    activeElement = element;
-  }
-
-  function initReelAnimation() {
-    const loop = horizontalLoop(selectors.thumbnailItemToArray, {
-      paused: false,
-      repeat: -1,
-      speed: 0.18,
-      draggable: true, // make it draggable
-      center: true, // active element is the one in the center of the container rather than th left edge
-      onChange: (element, index) => {
-        // when the active element changes, this function gets called.
-        handleSwitchAssetsOnChange(element);
-      }
-    });
-
-    // in case you change center prop to false, remove the line below.
-    loop.toIndex(0, {
-      duration: 0
-    });
-  }
+    selectors.mainContainer.insertAdjacentHTML(
+      "beforeend",
+      assetComponentAppend
+    );
+  });
 
   /*
   This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
-  
+
   Features:
     - Uses xPercent so that even if the widths change (like if the window gets resized), it should still work in most cases.
     - When each item animates to the left or right enough, it will loop back to the other side
