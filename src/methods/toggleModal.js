@@ -11,9 +11,6 @@ function handleGSAPModalAnimation(element, transformValue, duration) {
 function handleCloseModal(element) {
   document.querySelectorAll(element).forEach((el) => {
     el.addEventListener("click", () => {
-      // activate scroll
-      ScrollTrigger.normalizeScroll(true);
-
       // delete cloned pills
       document
         .querySelectorAll("rovo-list__item-pills--clone")

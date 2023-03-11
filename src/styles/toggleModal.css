@@ -8,6 +8,15 @@
   z-index: 0;
 }
 
+.rovo-list-modal {
+  display: none;
+  opacity: 1;
+}
+
+.rovo-list-modal--clone {
+  display: block;
+}
+
 @media only screen and (min-width: 768px) {
   .rovo-list-modal--overlay--clone {
     display: block;
