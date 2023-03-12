@@ -11,10 +11,6 @@ function handleGSAPModalAnimation(element, transformValue, duration) {
 function handleCloseModal(element) {
   document.querySelectorAll(element).forEach((el) => {
     el.addEventListener("click", () => {
-      setTimeout(() => {
-        ScrollTrigger.normalizeScroll(true);
-      }, 300);
-
       // delete cloned pills
       document
         .querySelectorAll("rovo-list__item-pills--clone")
@@ -47,9 +43,6 @@ function handleCloseModal(element) {
 function handleOpenModal() {
   document.querySelectorAll(".rovo-list__item-content").forEach((el) => {
     el.addEventListener("click", () => {
-      // disable scroll
-      ScrollTrigger.normalizeScroll(false);
-
       // overlay
       const overlay = el.parentElement.querySelector(
         ".rovo-list-modal--overlay"

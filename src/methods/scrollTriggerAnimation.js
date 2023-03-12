@@ -1,5 +1,4 @@
 function scrollTriggerAnimation() {
-  ScrollTrigger.normalizeScroll(true); // enable
   const fadeUpContainer = gsap.utils.toArray('[data-gsap="fade-up"]');
 
   fadeUpContainer.forEach((fadeUp, i) => {
