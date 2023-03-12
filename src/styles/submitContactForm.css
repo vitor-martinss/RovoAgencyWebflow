@@ -1,17 +1,17 @@
 .rovo-inquiry-form__select--error {
-  color: #FF8181;
-  border-color: #FF8181;
+  color: #ff8181;
+  border-color: #ff8181;
 }
 
 .rovo-inquiry-form__field--error {
-  color: #FF8181;
-  border-color: #FF8181;
+  color: #ff8181;
+  border-color: #ff8181;
 }
 
-.rovo-inquiry-form__field--error::placeholder{
-  color: #FF8181;
+.rovo-inquiry-form__field--error::placeholder {
+  color: #ff8181;
 }
 
-.form-success>.rovo-inquiry-form__button{
+.form-success > .rovo-inquiry-form__button {
   background-color: #000;
 }

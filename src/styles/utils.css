@@ -6,27 +6,30 @@
   pointer-events: none;
 }
 
-.rovo-checkbox-field-error>.rovo-checkbox {
-  border-color: #FF8181;
+.rovo-checkbox-field-error > .rovo-checkbox {
+  border-color: #ff8181;
 }
 
-.rovo-checkbox-field-error>.rovo-checkbox__label {
-  color: #FF8181;
+.rovo-checkbox-field-error > .rovo-checkbox__label {
+  color: #ff8181;
 }
 
-.rovo-checkbox-field-error>.rovo-checkbox__label>.rovo-checkbox__link {
-  color: #FF8181;
+.rovo-checkbox-field-error > .rovo-checkbox__label > .rovo-checkbox__link {
+  color: #ff8181;
 }
 
 .rovo-main__animation {
   width: 100%;
-  height: 100vh;
+  height: 110vh;
   transform: translateY(100%);
   background-color: white;
   z-index: 100;
   position: fixed;
 }
 
+.rovo-header-anchor__item-link.w-nav-link.w--current {
+  pointer-events: none;
+}
 
 .rovo-home-animation--active {
   display: flex;
@@ -34,19 +37,17 @@
   justify-content: center;
 }
 
-/* avoid clicking on first link of footer that is just a text */
 .rovo-footer-link-list__item:first-of-type {
   pointer-events: none;
 }
 
-/* avoid clicking on reels header */
 .rovo-reels-header-brand {
   pointer-events: none;
 }
 
 .rovo-header-mobile__btn--clone-reel {
   position: fixed;
-  left: 25px;
+  right: 25px;
   top: 22px;
   z-index: 101;
 }
@@ -58,16 +59,15 @@
   z-index: 101;
 }
 
-
 @media only screen and (min-width: 768px) {
   .rovo-header-brand__image--clone-reel {
-    left: 30px;
     top: 25px;
   }
 }
 
 @media only screen and (min-width: 992px) {
   .rovo-header-brand__image--clone-reel {
+    left: 30px;
     top: 30px;
   }
 }

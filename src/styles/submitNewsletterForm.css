@@ -1,14 +1,14 @@
-.rovo-email-field-error>.rovo-footer-form__field {
-  color: #FF8181;
-  border-color: #FF8181; 
+.rovo-email-field-error > .rovo-footer-form__field {
+  color: #ff8181;
+  border-color: #ff8181;
 }
 
-.rovo-email-field-error>.rovo-footer-form__field::placeholder{
-  color: #FF8181;
+.rovo-email-field-error > .rovo-footer-form__field::placeholder {
+  color: #ff8181;
 }
 
-.rovo-email-field-error>.rovo-footer-form-submit {
-  color: #FF8181;
-  border-color: #FF8181;
+.rovo-email-field-error > .rovo-footer-form-submit {
+  color: #ff8181;
+  border-color: #ff8181;
   background-image: url("https://uploads-ssl.webflow.com/63d3eaac7a8602236c6c30b2/63ef7a090c3fb146b668d721_arrow-right-red.svg");
 }
