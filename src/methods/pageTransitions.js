@@ -92,7 +92,7 @@ function barbaJSPageTransitions() {
         fadeUp,
         {
           autoAlpha: 0,
-          y: 50
+          y: 2
         },
         {
           duration: 0.5,
@@ -102,7 +102,7 @@ function barbaJSPageTransitions() {
       );
       ScrollTrigger.create({
         trigger: fadeUp,
-        start: "10% 80%",
+        start: "10% 85%",
         animation: animationFadeUp,
         toggleActions: "play none none none",
         once: true
