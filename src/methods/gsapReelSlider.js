@@ -105,7 +105,7 @@ function gsapReelSlider() {
     const loop = horizontalLoop(selectors.thumbnailItemToArray, {
       paused: false,
       repeat: -1,
-      speed: 0.18,
+      speed: 0.22,
       draggable: true, // make it draggable
       center: true, // active element is the one in the center of the container rather than th left edge
       onChange: (element, index) => {
@@ -120,6 +120,7 @@ function gsapReelSlider() {
     });
   }
 
+  // here is how we populate the main container
   selectors.thumbnailItemToArray.forEach((element) => {
     const activeElementSource = element.querySelector(".rovo-main-source");
     const activeElementImageSourceDesktop = activeElementSource.getAttribute(

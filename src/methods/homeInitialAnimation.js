@@ -5,20 +5,22 @@ function homeInitialAnimation() {
     homeAnimationImage: ".rovo-home-animation__image",
     homeAnimationHeading: ".rovo-home-animation__heading",
     homeAnimatedContainer: ".rovo-home-animation"
-  }
+  };
 
   if (!selectors.homeAnimationContainer) {
     return null;
   }
 
   function onStartAnimation() {
-    selectors.homeAnimationContainer
-      .classList.add("rovo-home-animation--active");
+    selectors.homeAnimationContainer.classList.add(
+      "rovo-home-animation--active"
+    );
   }
 
   function onCompleteAnimation() {
-    selectors.homeAnimationContainer
-      .classList.remove("rovo-home-animation--active");
+    selectors.homeAnimationContainer.classList.remove(
+      "rovo-home-animation--active"
+    );
   }
 
   function homeAnimation() {
@@ -41,7 +43,8 @@ function homeInitialAnimation() {
       duration: 0.3
     });
     tl.to(
-      selectors.homeAnimationHeading, {
+      selectors.homeAnimationHeading,
+      {
         y: 0,
         duration: 0.3
       },
@@ -53,7 +56,8 @@ function homeInitialAnimation() {
       duration: 0.3
     });
     tl.to(
-      selectors.homeAnimatedContainer, {
+      selectors.homeAnimatedContainer,
+      {
         height: 0,
         duration: 0.3
       },
@@ -63,20 +67,22 @@ function homeInitialAnimation() {
       opacity: 1,
       duration: 0.2
     });
+    tl.to(selectors.homeAnimationContainer, {
+      display: "none"
+    });
   }
 
   function setSessionStorage() {
     sessionStorage.setItem("homeAnimation", "true");
   }
 
-  window.addEventListener("load", () => {
-    if (sessionStorage.getItem("homeAnimation") !== "true") {
-      homeAnimation();
-      setSessionStorage();
-    } else {
-      selectors.homeAnimationContainer && selectors.homeAnimationContainer.remove();
-    }
-  });
+  if (sessionStorage.getItem("homeAnimation") !== "true") {
+    homeAnimation();
+    setSessionStorage();
+  } else {
+    selectors.homeAnimationContainer &&
+      selectors.homeAnimationContainer.remove();
+  }
 }
 
-homeInitialAnimation()
+homeInitialAnimation();

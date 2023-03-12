@@ -120,6 +120,7 @@ function barbaJSPageTransitions() {
 
   function handleLeaveTransition(currentContainer, fromRoute) {
     if (fromRoute === "home") {
+      // because of the line below we need sync as true
       document.querySelector(".rovo-header-anchor").style.background =
         "transparent";
       //keep the logo on screen
@@ -273,9 +274,10 @@ function barbaJSPageTransitions() {
       "https://cdn.jsdelivr.net/npm/@barba/core",
       "https://cdn.jsdelivr.net/npm/@barba/router@2.1.10/dist/barba-router.umd.min.js",
       "https://jz2oq8.csb.app/src/methods/helper.js",
-      "https://jz2oq8.csb.app/src/methods/scrollTriggerAnimation.js",
+      "https://jz2oq8.csb.app/src/methods/scrollTriggerAnimations.js",
       "https://jz2oq8.csb.app/src/methods/homeInitialAnimation.js",
       "https://jz2oq8.csb.app/src/methods/gsapReelSlider.js",
+      "https://jz2oq8.csb.app/src/methods/scrollPinHomeAnimation.js",
       "https://jz2oq8.csb.app/src/methods/asideHeaderHeightOnScroll.js",
       "https://jz2oq8.csb.app/src/methods/anchorScrollTo.js",
       "https://jz2oq8.csb.app/src/methods/toggleMenuMobile.js",
@@ -294,6 +296,7 @@ function barbaJSPageTransitions() {
         offsetY: 0
       }
     });
+
     gsapFadeInAnimation();
     gsapScrollTriggerFadeUp();
     ScrollTrigger.refresh();
@@ -319,6 +322,11 @@ function barbaJSPageTransitions() {
       await delayTransition(300);
       done();
     },
+    // async afterLeave() {
+    //   ScrollTrigger.getAll().forEach((t) => t.kill(false));
+    //   ScrollTrigger.refresh();
+    //   window.dispatchEvent(new Event("resize"));
+    // },
     async enter({ next }) {
       const done = this.async();
       //call page transition function
@@ -362,7 +370,6 @@ function barbaJSPageTransitions() {
 
   const toHomeTransition = {
     name: "enter-home-curtain-transition",
-
     from: {
       route: ["contact", "about", "privacy-policy"]
     },

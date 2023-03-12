@@ -41,7 +41,7 @@ function scrollTriggerAnimation() {
       {
         duration: 0.5,
         autoAlpha: 1,
-        delay: delayedAnimation
+        delay: delayedFadeInAnimation
       }
     );
     ScrollTrigger.create({
@@ -77,6 +77,7 @@ function scrollTriggerAnimation() {
   });
 }
 
+//important to leave this inside a load listener because of page transitions
 window.addEventListener("load", () => {
   scrollTriggerAnimation();
 });

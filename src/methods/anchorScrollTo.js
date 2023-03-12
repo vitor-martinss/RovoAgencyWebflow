@@ -33,10 +33,11 @@ document.querySelectorAll("a[href]").forEach((a) => {
     if (window.innerWidth < 768) {
       scrollToHash(getSamePageAnchor(a), e, 70);
     } else {
-      scrollToHash(getSamePageAnchor(a), e);
+      scrollToHash(getSamePageAnchor(a), e, 0);
     }
   });
 });
 
+gsap.registerPlugin(ScrollToPlugin);
 // Scroll to the element in the URL's hash on load
 scrollToHash(window.location.hash);

@@ -11,6 +11,10 @@ function handleGSAPModalAnimation(element, transformValue, duration) {
 function handleCloseModal(element) {
   document.querySelectorAll(element).forEach((el) => {
     el.addEventListener("click", () => {
+      setTimeout(() => {
+        ScrollTrigger.normalizeScroll(true);
+      }, 300);
+
       // delete cloned pills
       document
         .querySelectorAll("rovo-list__item-pills--clone")
@@ -77,12 +81,13 @@ function handleOpenModal() {
       handleGSAPModalAnimation(modalCloned, "translateX(0%)", 0.3);
 
       // avoid scroll the page
-      bodyScrollLock.lock(document.querySelector("main"));
+      bodyScrollLock.lock(document.querySelector("body"));
       bodyScrollLock.unlock(modalCloned);
 
       document.body.classList.add("overflow-hidden");
       document.querySelector("html").classList.add("overflow-hidden");
 
+      // functions below are placed here in order to add a listener to cloned Node
       handleCloseModal(".rovo-list-modal__item-close");
       handleCloseModal(".rovo-list-modal--overlay--clone");
     });

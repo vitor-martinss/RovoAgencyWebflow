@@ -1,5 +1,5 @@
 if (document.getElementById("rovo-slider-numbers")) {
-  const swiper = new Swiper("#rovo-slider-numbers", {
+  new Swiper("#rovo-slider-numbers", {
     grabCursor: true,
     simulateTouch: true,
     effect: "creative",

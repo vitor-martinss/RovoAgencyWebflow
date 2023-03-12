@@ -17,9 +17,11 @@ function handleAsideHeaderHeightOnScroll() {
   }
 }
 
-window.addEventListener("scroll", () => {
-  handleAsideHeaderHeightOnScroll();
-});
+if (window.innerWidth >= 768) {
+  window.addEventListener("scroll", () => {
+    handleAsideHeaderHeightOnScroll();
+  });
+}
 
 window.addEventListener("resize", () => {
   if (window.innerWidth >= 768) {
