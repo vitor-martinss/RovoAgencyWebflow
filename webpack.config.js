@@ -13,7 +13,7 @@ module.exports = {
     pageTransitions: './src/methods/pageTransitions.js'
   },
   output: {
-    filename: '[name].[contenthash].js',
+    filename: '[name].js',
     path: path.resolve(__dirname, 'build')
   },
   plugins: [
@@ -24,7 +24,7 @@ module.exports = {
       template: path.resolve(__dirname, 'src', 'index.html'),
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
+      filename: '[name].css',
     }),
 
   ],
