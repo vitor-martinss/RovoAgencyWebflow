@@ -13,6 +13,10 @@
   opacity: 1;
 }
 
+.rovo-list-modal__item {
+  overscroll-behavior-y: contain;
+}
+
 .rovo-list-modal--clone {
   display: block;
 }
