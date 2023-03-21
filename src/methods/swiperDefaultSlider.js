@@ -11,7 +11,7 @@ if (document.getElementById("rovo-slider-cards")) {
     loop: true,
     pagination: {
       el: document.querySelector(".rovo-slider-cards .swiper-pagination"),
-      clickable: true
+      clickable: false
     },
 
     breakpoints: {
@@ -24,6 +24,23 @@ if (document.getElementById("rovo-slider-cards")) {
         spaceBetween: 32,
         slideToClickedSlide: true
       }
+    }
+  });
+}
+
+if (document.getElementById("rovo-slider-selected-clients")) {
+  new Swiper("#rovo-slider-selected-clients", {
+    simulateTouch: true,
+    slidesPerView: 1,
+    spaceBetween: 0,
+    snapOnRelease: true,
+    centeredSlides: false,
+    watchSlidesProgress: true,
+    shortSwipes: true,
+    loop: true,
+    pagination: {
+      el: document.querySelector(".rovo-clients-swiper .swiper-pagination"),
+      clickable: false
     }
   });
 }

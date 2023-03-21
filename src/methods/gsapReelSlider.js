@@ -5,7 +5,12 @@ function gsapReelSlider() {
     thumbnailFakeBackground: document.querySelector(
       ".rovo-reels-thumbnail-background"
     ),
-    thumbnailItemToArray: gsap.utils.toArray(".rovo-reels__list-item")
+    thumbnailItemToArrayDesktop: gsap.utils.toArray(
+      ".rovo-reels__list-item-desktop"
+    ),
+    thumbnailItemToArrayMobile: gsap.utils.toArray(
+      ".rovo-reels__list-item-mobile"
+    )
   };
 
   let activeElement;
@@ -102,7 +107,12 @@ function gsapReelSlider() {
   }
 
   function initReelAnimation() {
-    const loop = horizontalLoop(selectors.thumbnailItemToArray, {
+    const thumbnails =
+      window.innerWidth >= 768
+        ? selectors.thumbnailItemToArrayDesktop
+        : selectors.thumbnailItemToArrayMobile;
+
+    const loop = horizontalLoop(thumbnails, {
       paused: false,
       repeat: -1,
       speed: 0.22,
@@ -120,68 +130,76 @@ function gsapReelSlider() {
     });
   }
 
-  // here is how we populate the main container
-  selectors.thumbnailItemToArray.forEach((element) => {
-    const activeElementSource = element.querySelector(".rovo-main-source");
-    const activeElementImageSourceDesktop = activeElementSource.getAttribute(
-      "data-image-src-desktop"
-    );
-    const activeElementImageSourceMobile = activeElementSource.getAttribute(
-      "data-image-src-mobile"
-    );
-    const activeElementVideoMP4SourceDesktop = activeElementSource.getAttribute(
-      "data-video-mp4-src-desktop"
-    );
-    const activeElementVideoMP4SourceMobile = activeElementSource.getAttribute(
-      "data-video-mp4-src-mobile"
-    );
-    const activeElementVideoWEBMSourceDesktop = activeElementSource.getAttribute(
-      "data-video-webm-src-desktop"
-    );
-    const activeElementVideoWEBMSourceMobile = activeElementSource.getAttribute(
-      "data-video-webm-src-mobile"
-    );
+  function handlePopulateMainContainerDesktop() {
+    // here is how we populate the main container
+    selectors.thumbnailItemToArrayDesktop.forEach((element) => {
+      const activeElementSource = element.querySelector(".rovo-main-source");
+      const activeElementImageSourceDesktop = activeElementSource.getAttribute(
+        "data-image-src-desktop"
+      );
 
-    let assetComponentAppend;
+      const activeElementVideoSourceDesktop = activeElementSource.getAttribute(
+        "data-video-src-desktop"
+      );
 
-    if (activeElementImageSourceDesktop || activeElementImageSourceMobile) {
-      if (window.innerWidth >= 768) {
+      let assetComponentAppend;
+
+      if (activeElementImageSourceDesktop) {
         assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceDesktop}" alt="${activeElementSource.getAttribute(
-          "data-image-description"
-        )}">`;
-      } else {
-        assetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceMobile}" alt="${activeElementSource.getAttribute(
-          "data-image-description"
+          "data-image-description-desktop"
         )}">`;
       }
-    }
 
-    if (
-      activeElementVideoMP4SourceDesktop ||
-      activeElementVideoMP4SourceMobile
-    ) {
-      if (window.innerWidth >= 768) {
+      if (activeElementVideoSourceDesktop) {
         assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline alt="${activeElementSource.getAttribute(
-          "data-image-description"
+          "data-image-description-desktop"
         )}">
-          <source src="${activeElementVideoWEBMSourceDesktop}" type="video/webm">
-          <source src="${activeElementVideoMP4SourceDesktop}" type="video/mp4">
-        </video>`;
-      } else {
-        assetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline alt="${activeElementSource.getAttribute(
-          "data-image-description"
-        )}">
-        <source src="${activeElementVideoWEBMSourceMobile}" type="video/webm">
-        <source src="${activeElementVideoMP4SourceMobile}" type="video/mp4">
+        <source src="${activeElementVideoSourceDesktop}" type="video/mp4">
       </video>`;
       }
-    }
 
-    selectors.mainContainer.insertAdjacentHTML(
-      "beforeend",
-      assetComponentAppend
-    );
-  });
+      selectors.mainContainer.insertAdjacentHTML(
+        "beforeend",
+        assetComponentAppend
+      );
+    });
+  }
+
+  function handlePopulateMainContainerMobile() {
+    // here is how we populate the main container
+    selectors.thumbnailItemToArrayMobile.forEach((element) => {
+      const activeElementSource = element.querySelector(".rovo-main-source");
+
+      const activeElementImageSourceMobile = activeElementSource.getAttribute(
+        "data-image-src-mobile"
+      );
+
+      const activeElementVideoSourceMobile = activeElementSource.getAttribute(
+        "data-video-src-mobile"
+      );
+
+      let mobileAssetComponentAppend;
+
+      if (activeElementImageSourceMobile) {
+        mobileAssetComponentAppend = `<img class="rovo-reels-image" src="${activeElementImageSourceMobile}" alt="${activeElementSource.getAttribute(
+          "data-image-description-mobile"
+        )}">`;
+      }
+
+      if (activeElementVideoSourceMobile) {
+        mobileAssetComponentAppend = `<video class="rovo-reels-video" autoplay muted loop playsinline alt="${activeElementSource.getAttribute(
+          "data-image-description-mobile"
+        )}">
+          <source src="${activeElementVideoSourceMobile}" type="video/mp4">
+        </video>`;
+      }
+
+      selectors.mainContainer.insertAdjacentHTML(
+        "beforeend",
+        mobileAssetComponentAppend
+      );
+    });
+  }
 
   /*
   This helper function makes a group of elements animate along the x-axis in a seamless, responsive loop.
@@ -446,16 +464,26 @@ function gsapReelSlider() {
 
   // init
   handleFakeBackground();
+  handleMainPopulationBasedOnScreenSize();
 
   if (window.innerWidth > 1024) {
     handleMouseMoveOnDesktop();
   }
+
   window.addEventListener("resize", () => {
     handleFakeBackground();
     if (window.innerWidth > 1024) {
       handleMouseMoveOnDesktop();
     }
   });
+
+  function handleMainPopulationBasedOnScreenSize() {
+    if (window.innerWidth >= 768) {
+      handlePopulateMainContainerDesktop();
+    } else {
+      handlePopulateMainContainerMobile();
+    }
+  }
 
   if (sessionStorage.getItem("homeAnimation") === "true") {
     initReelAnimation();

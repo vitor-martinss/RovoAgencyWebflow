@@ -1,5 +1,6 @@
 function homeInitialAnimation() {
   const selectors = {
+    homeReelContainer: document.querySelector(".rovo-js-reels"),
     homeAnimationContainer: document.querySelector(".rovo-home-animation"),
     homeHeader: ".rovo-reels-header",
     homeAnimationImage: ".rovo-home-animation__image",
@@ -29,8 +30,8 @@ function homeInitialAnimation() {
     });
 
     const tl = gsap.timeline({
-      onStart: onStartAnimation(),
-      onComplete: onCompleteAnimation()
+      onStart: () => onStartAnimation(),
+      onComplete: () => onCompleteAnimation()
     });
     tl.to(selectors.homeAnimationImage, {
       y: 0,
