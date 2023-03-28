@@ -360,18 +360,7 @@ function barbaJSPageTransitions() {
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Draggable.min.js",
       "https://cdn.jsdelivr.net/npm/@barba/core",
       "https://cdn.jsdelivr.net/npm/@barba/router@2.1.10/dist/barba-router.umd.min.js",
-      "https://jz2oq8.csb.app/src/methods/helper.js",
-      "https://jz2oq8.csb.app/src/methods/scrollTriggerAnimations.js",
-      "https://jz2oq8.csb.app/src/methods/gsapReelSlider.js",
-      "https://jz2oq8.csb.app/src/methods/asideHeaderHeightOnScroll.js",
-      "https://jz2oq8.csb.app/src/methods/anchorScrollTo.js",
-      "https://jz2oq8.csb.app/src/methods/toggleMenuMobile.js",
-      "https://jz2oq8.csb.app/src/methods/toggleModal.js",
-      "https://jz2oq8.csb.app/src/methods/submitNewsletterForm.js",
-      "https://jz2oq8.csb.app/src/methods/submitContactForm.js",
-      "https://jz2oq8.csb.app/src/methods/swiperCreativeSlider.js",
-      "https://jz2oq8.csb.app/src/methods/swiperDefaultSlider.js",
-      "https://jz2oq8.csb.app/src/methods/homeInitialAnimation.js"
+      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/build/index.js"
     ];
     customLinks.map((el) => applyNewScript(el));
 
