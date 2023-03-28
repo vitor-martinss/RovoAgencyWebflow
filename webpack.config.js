@@ -9,8 +9,8 @@ module.exports = {
   mode: 'production',
   devtool: 'source-map',
   entry: {
-    index: './src/index.js',
-    barbaJsPageTransitions: './src/methods/barbaJsPageTransitions.js'
+    custom: './src/index.js',
+    mainBarbaJsPageTransitions: './src/methods/barbaJsPageTransitions.js'
   },
   output: {
     filename: '[name].js',
