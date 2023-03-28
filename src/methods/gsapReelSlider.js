@@ -115,7 +115,7 @@ function gsapReelSlider() {
     const loop = horizontalLoop(thumbnails, {
       paused: false,
       repeat: -1,
-      speed: 0.22,
+      speed: 0.25,
       draggable: true, // make it draggable
       center: true, // active element is the one in the center of the container rather than th left edge
       onChange: (element, index) => {

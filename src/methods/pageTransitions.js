@@ -64,7 +64,8 @@ function barbaJSPageTransitions() {
     Observer.create({
       trigger: ".rovo-reels",
       type: "wheel, scroll",
-      dragMinimum: 500,
+      // lockAxis: true,
+      dragMinimum: 2000,
       tolerance: 30,
       ignore: ".rovo-home-animation--active",
       onDown: () => {
@@ -78,39 +79,6 @@ function barbaJSPageTransitions() {
       }
     });
   }
-
-  // function handleFireScrollDownPageTransition() {
-  //   if (!document.querySelector("#rovo-wrapper-about-page")) {
-  //     return;
-  //   }
-
-  //   gsap.registerPlugin(Observer);
-
-  //   Observer.create({
-  //     trigger: "#rovo-wrapper-about-page",
-  //     type: "wheel, scroll, touch",
-  //     //tolerance: 30,
-  //     onUp: (self) => {
-  //       console.log(self.event.movementY);
-  //       console.log();
-  //       console.log(self.event.screenY);
-  //       console.log(self.event.y);
-  //       if (self.scrollY() === 0 && self.isDragging) {
-  //         alert("change", self.event.movementY);
-  //       }
-  //     }
-
-  //     // onDown: () => {
-  //     //   if (
-  //     //     !scrollFired &&
-  //     //     document.querySelector("[data-route='scroll-up']")
-  //     //   ) {
-  //     //     document.querySelector("[data-route='scroll-up']").click();
-  //     //     scrollFired = true;
-  //     //   }
-  //     // }
-  //   });
-  // }
 
   function delayTransition(n) {
     n = n || 2000;
@@ -325,6 +293,13 @@ function barbaJSPageTransitions() {
   }
 
   function handleEnterHomePage(nextContainer) {
+    gsap.to(window, {
+      duration: 0,
+      scrollTo: {
+        y: 0
+      }
+    });
+
     // fade in the header
     const reelHeaderNav = nextContainer.querySelector(
       ".rovo-reels-header__nav"
@@ -404,8 +379,7 @@ function barbaJSPageTransitions() {
     gsap.to(window, {
       duration: 0,
       scrollTo: {
-        y: 0,
-        offsetY: 0
+        y: 0
       }
     });
 
@@ -440,7 +414,7 @@ function barbaJSPageTransitions() {
       //call page transition function
       handleLeaveTransition(current.container, "default");
       //give a small delayTransition
-      await delayTransition(300);
+      await delayTransition(500);
       done();
     },
     async enter({ next }) {
@@ -448,7 +422,7 @@ function barbaJSPageTransitions() {
       //call page transition function
       handleEnterAboutOrContactPage(next.container, "default");
       //give a small delayTransition
-      await delayTransition(300);
+      await delayTransition(500);
       done();
     },
     async after() {
@@ -488,6 +462,7 @@ function barbaJSPageTransitions() {
       await delayTransition(500);
       done();
     },
+
     async after() {
       //call page transition function
       handleAfterTransitionFromHomePage();
@@ -566,47 +541,10 @@ function barbaJSPageTransitions() {
     }
   };
 
-  const fromAboutToHomePageScrollDownView = {
-    sync: true,
-    name: "scroll-down-from-about-transition",
-    from: {
-      // define a custom rule based on the trigger class
-      custom: ({ trigger }) => {
-        return trigger.dataset && trigger.dataset.route === "scroll-down";
-      },
-      route: ["about"]
-    },
-    to: {
-      route: ["home"]
-    },
-
-    async leave({ current, next }) {
-      const done = this.async();
-      //call page transition function
-      handleScrollUpLeaveTransition(current.container, next.container);
-      //give a small delayTransition
-      await delayTransition(500);
-      done();
-    },
-    async enter({ next }) {
-      const done = this.async();
-      //call page transition function
-      handleScrollUpEnterNextPage(next.container);
-      //give a small delayTransition
-      await delayTransition(800);
-      done();
-    },
-    async after() {
-      //call page transition function
-      handleScrollUpAfterTransition();
-    }
-  };
-
   barba.init({
     preventRunning: true,
     transitions: [
       fromHomePageScrollUpView,
-      fromAboutToHomePageScrollDownView,
       defaultCurtainTransition,
       homeCurtainTransition,
       toHomeTransition
@@ -615,20 +553,11 @@ function barbaJSPageTransitions() {
 
   barba.prefetch("/");
   barba.prefetch("/about");
-  //handleFireScrollDownPageTransition();
   // prevent user to scroll up and start transition page before the end of the animation
   handleFireScrollUpPageTransition();
 }
 
 window.addEventListener("load", () => {
-  gsap.to(window, {
-    duration: 0,
-    scrollTo: {
-      y: 0,
-      offsetY: 0
-    }
-  });
-
   barbaJSPageTransitions();
 });
 

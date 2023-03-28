@@ -55,6 +55,11 @@
     -ms-overflow-style: none; /* for Internet Explorer, Edge */
     scrollbar-width: none; /* for Firefox */
     overflow-y: scroll;
+    height: -webkit-fill-available;
+  }
+
+  body {
+    min-height: -webkit-fill-available;
   }
 
   body::-webkit-scrollbar {
@@ -112,6 +117,15 @@
 .swiper-pagination {
   z-index: 9;
 }
+
+/* #rovo-slider-numbers
+  + .swiper-pagination
+  > .swiper-pagination-bullet:first-of-type,
+#rovo-slider-numbers
+  + .swiper-pagination
+  > .swiper-pagination-bullet:nth-of-type(2) {
+  display: none;
+} */
 
 /* slider pagination */
 .swiper-pagination-bullet {
@@ -184,6 +198,12 @@
   justify-content: flex-end;
 }
 
+/* #rovo-slider-cards
+  + .swiper-pagination
+  > .swiper-pagination-bullet:first-of-type {
+  display: none;
+} */
+
 @media only screen and (min-width: 768px) {
   /* slider pagination */
   .swiper-pagination {
@@ -229,6 +249,10 @@
 .rovo-list-modal {
   display: none;
   opacity: 1;
+}
+
+.rovo-list-modal__item {
+  overscroll-behavior-y: contain;
 }
 
 .rovo-list-modal--clone {
@@ -279,6 +303,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 99999;
+  touch-action: none;
 }
 
 .rovo-footer-link-list__item:first-of-type {
@@ -301,6 +327,13 @@
   left: 25px;
   top: 22px;
   z-index: 101;
+}
+
+.rovo-js-barba-slide-up--animate {
+  position: fixed;
+  width: 100%;
+  top: 100%;
+  background-color: white;
 }
 
 @media only screen and (min-width: 768px) {

@@ -13,7 +13,7 @@ if (document.getElementById("rovo-slider-numbers")) {
     draggable: true,
     pagination: {
       el: document.querySelector(".rovo-slider-numbers .swiper-pagination"),
-      clickable: false
+      clickable: true
     },
     creativeEffect: {
       limitProgress: 1,
@@ -42,7 +42,7 @@ if (document.getElementById("rovo-slider-numbers")) {
         }
       },
       992: {
-        slidesPerView: 1.8,
+        slidesPerView: 2,
         spaceBetween: 32,
         slideToClickedSlide: true,
         draggable: false,
@@ -59,8 +59,8 @@ if (document.getElementById("rovo-slider-numbers")) {
         }
       },
       1280: {
-        slidesPerView: 2.5,
-        spaceBetween: 32,
+        slidesPerView: 2,
+        spaceBetween: 30,
         slideToClickedSlide: true,
         draggable: false,
         creativeEffect: {

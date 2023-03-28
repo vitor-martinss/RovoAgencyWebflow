@@ -8,10 +8,10 @@ if (document.getElementById("rovo-slider-cards")) {
     centeredSlides: false,
     watchSlidesProgress: true,
     shortSwipes: true,
-    loop: true,
+    loop: false,
     pagination: {
       el: document.querySelector(".rovo-slider-cards .swiper-pagination"),
-      clickable: false
+      clickable: true
     },
 
     breakpoints: {
@@ -23,6 +23,15 @@ if (document.getElementById("rovo-slider-cards")) {
         slidesPerView: 1.5,
         spaceBetween: 32,
         slideToClickedSlide: true
+      }
+    },
+    on: {
+      reachEnd: (index) => {
+        if (window.innerWidth >= 768) {
+          index.slides[2].querySelector(
+            ".rovo-slider-cards__container"
+          ).style.paddingRight = "30px";
+        }
       }
     }
   });
@@ -40,7 +49,7 @@ if (document.getElementById("rovo-slider-selected-clients")) {
     loop: true,
     pagination: {
       el: document.querySelector(".rovo-clients-swiper .swiper-pagination"),
-      clickable: false
+      clickable: true
     }
   });
 }

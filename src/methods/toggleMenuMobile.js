@@ -6,7 +6,6 @@ function handleToggleMenuMobile() {
     const navMobile = document.querySelector(
       ".rovo-header-anchor__nav-wrapper"
     );
-    const anchorItems = document.querySelectorAll(".rovo-js-nav-anchor");
     const pageRouterLink = document.querySelectorAll(".rovo-js-nav-page");
     const homePageHeader = document.querySelector(".rovo-reels-header");
 
@@ -49,33 +48,23 @@ function handleToggleMenuMobile() {
       }
     });
 
-    anchorItems.forEach((el) => {
-      el.addEventListener("click", () => {
-        navMobile.classList.remove("open");
+    function handleCloseMenuAfterItemClicked(element) {
+      element.forEach((el) => {
+        el.addEventListener("click", () => {
+          navMobile.classList.remove("open");
 
-        if (homePageHeader) {
-          homePageHeader.classList.toggle("header--open");
-        }
+          if (homePageHeader) {
+            homePageHeader.classList.toggle("header--open");
+          }
 
-        document.body.classList.toggle("overflow-hidden");
+          document.body.classList.toggle("overflow-hidden");
 
-        handleGSAPAnimation(navMobile, "translateX(105%)", 0.3);
+          handleGSAPAnimation(navMobile, "translateX(105%)", 0.3);
+        });
       });
-    });
+    }
 
-    pageRouterLink.forEach((el) => {
-      el.addEventListener("click", () => {
-        navMobile.classList.remove("open");
-
-        if (homePageHeader) {
-          homePageHeader.classList.toggle("header--open");
-        }
-
-        document.body.classList.toggle("overflow-hidden");
-
-        handleGSAPAnimation(navMobile, "translateX(105%)", 0.3);
-      });
-    });
+    handleCloseMenuAfterItemClicked(pageRouterLink);
   }
 }
 

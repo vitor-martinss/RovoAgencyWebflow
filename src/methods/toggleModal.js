@@ -82,6 +82,7 @@ function handleOpenModal() {
 
       // functions below are placed here in order to add a listener to cloned Node
       handleCloseModal(".rovo-list-modal__item-close");
+      handleCloseModal(".rovo-js-modal-link");
       handleCloseModal(".rovo-list-modal--overlay--clone");
     });
   });

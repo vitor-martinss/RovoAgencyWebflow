@@ -11,21 +11,7 @@ function setTargetOnPrivacyPolicyLinkToSelf() {
   });
 }
 
-// this is because page transitions and pages that are on homepage mobile version scroll up
-// function removeExtraElementsOnMobileHomepage() {
-//   if (window.innerWidth < 768) {
-//     return null;
-//   }
-
-//   document.querySelector("#rovo-home-about") &&
-//     document.querySelector("#rovo-home-about").remove();
-//   document.querySelector("#rovo-home-contact") &&
-//     document.querySelector("#rovo-home-contact").remove();
-// }
-
-//removeExtraElementsOnMobileHomepage();
-setTargetOnPrivacyPolicyLinkToSelf();
-
+// avoid overScroll on IOS
 function stopOverscroll(element) {
   element = gsap.utils.toArray(element)[0] || window;
   (element === document.body || element === document.documentElement) &&
@@ -90,3 +76,4 @@ function stopOverscroll(element) {
 }
 
 stopOverscroll();
+setTargetOnPrivacyPolicyLinkToSelf();

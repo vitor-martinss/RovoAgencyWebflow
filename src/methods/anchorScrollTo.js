@@ -5,6 +5,18 @@ function handleScrollToInsideApp() {
 
   gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
+  const navMobile = document.querySelector(".rovo-header-anchor__nav-wrapper");
+
+  const handleGSAPAnimation = (element, transformValue, duration) => {
+    const timeLine = new TimelineMax({ paused: true });
+    const animation = timeLine.to(element, {
+      duration,
+      transform: `${transformValue}`
+    });
+
+    animation.play();
+  };
+
   // Detect if a link's href goes to the current page
   function getSamePageAnchor(link) {
     if (
@@ -20,29 +32,36 @@ function handleScrollToInsideApp() {
   }
 
   // Scroll to a given hash, preventing the event given if there is one
-  function scrollToHash(hash, offset = 0) {
+  function scrollToHash(hash, e) {
     const elem = hash ? document.querySelector(hash) : false;
+
     if (elem) {
+      e && e.preventDefault();
+      e && e.stopPropagation();
+      history.pushState(null, null, hash);
       gsap.to(window, {
         duration: 0.5,
         ease: "none",
         scrollTo: {
-          y: elem,
-          offsetY: offset
+          y: elem
         }
       });
+    }
+  }
+
+  function handleCloseMenuAfterAnchorClicked() {
+    if (window.innerWidth < 768) {
+      navMobile.classList.remove("open");
+      document.body.classList.toggle("overflow-hidden");
+      handleGSAPAnimation(navMobile, "translateX(105%)", 0.3);
     }
   }
 
   // If a link's href is within the current page, scroll to it instead
   gsap.utils.toArray(".rovo-js-anchor").forEach((a) => {
     a.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (window.innerWidth < 768) {
-        scrollToHash(getSamePageAnchor(a), 70);
-      } else {
-        scrollToHash(getSamePageAnchor(a), 29);
-      }
+      scrollToHash(getSamePageAnchor(a), e);
+      handleCloseMenuAfterAnchorClicked();
     });
   });
 
