@@ -10,7 +10,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     index: './src/index.js',
-    pageTransitions: './src/methods/pageTransitions.js'
+    barbaJsPageTransitions: './src/methods/barbaJsPageTransitions.js'
   },
   output: {
     filename: '[name].js',
