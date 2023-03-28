@@ -1,3 +1,7 @@
+body {
+  min-height: -webkit-fill-available;
+}
+
 @media (min-width: 992px) {
   /* hide scrollbar but allow scrolling */
   html {

@@ -16,15 +16,6 @@
   z-index: 9;
 }
 
-/* #rovo-slider-numbers
-  + .swiper-pagination
-  > .swiper-pagination-bullet:first-of-type,
-#rovo-slider-numbers
-  + .swiper-pagination
-  > .swiper-pagination-bullet:nth-of-type(2) {
-  display: none;
-} */
-
 /* slider pagination */
 .swiper-pagination-bullet {
   width: 2rem;

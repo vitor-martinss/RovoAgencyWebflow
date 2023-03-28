@@ -80,3 +80,113 @@
     top: 30px;
   }
 }
+
+.rovo-clients-image {
+  filter: grayscale(1);
+}
+
+.rovo-clients__item[data-mobile-custom-height="10"] > img {
+  max-height: 10px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="20"] > img {
+  max-height: 20px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="30"] > img {
+  max-height: 30px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="40"] > img {
+  max-height: 40px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="50"] > img {
+  max-height: 50px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="60"] > img {
+  max-height: 60px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="70"] > img {
+  max-height: 70px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="80"] > img {
+  max-height: 80px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="90"] > img {
+  max-height: 90px;
+}
+
+.rovo-clients__item[data-mobile-custom-height="100"] > img {
+  max-height: 100px;
+}
+
+/* Selected Client block data attributes */
+@media only screen and (min-width: 768px) {
+  .rovo-clients__item[data-desktop-custom-height="10"] > img {
+    max-height: 10px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="20"] > img {
+    max-height: 20px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="30"] > img {
+    max-height: 30px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="40"] > img {
+    max-height: 40px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="50"] > img {
+    max-height: 50px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="60"] > img {
+    max-height: 60px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="70"] > img {
+    max-height: 70px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="80"] > img {
+    max-height: 80px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="90"] > img {
+    max-height: 90px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="100"] > img {
+    max-height: 100px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="110"] > img {
+    max-height: 110px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="120"] > img {
+    max-height: 120px;
+  }
+
+  .rovo-clients__item[data-desktop-custom-height="130"] > img {
+    max-height: 130px;
+  }
+  .rovo-clients__item[data-desktop-custom-height="140"] > img {
+    max-height: 140px;
+  }
+  .rovo-clients__item[data-desktop-custom-height="150"] > img {
+    max-height: 150px;
+  }
+}
+
+.rovo-js-nav-anchor,
+.rovo-js-nav-page {
+  cursor: pointer;
+}
