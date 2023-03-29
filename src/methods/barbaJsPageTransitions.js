@@ -361,8 +361,8 @@ function barbaJSPageTransitions() {
       "https://cdn.jsdelivr.net/npm/@barba/core",
       "https://cdn.jsdelivr.net/npm/@barba/router@2.1.10/dist/barba-router.umd.min.js",
       "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/build/custom.js",
-      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/src/methods/submitContactForm.js",
-      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/src/methods/submitNewsletterForm.js"
+      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/src/methods/jQuerySubmitContactForm.js",
+      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/src/methods/jQuerySubmitNewsletterForm.js"
     ];
     customLinks.map((el) => applyNewScript(el));
 
