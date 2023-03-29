@@ -10,7 +10,7 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     custom02: './src/index.js',
-    mainBarbaJsPageTransitions02: './src/methods/barbaJsPageTransitions.js',
+    mainBarbaJsPageTransitions03: './src/methods/barbaJsPageTransitions.js',
     mainSubmitNewsletterForm02: './src/methods/jQuerySubmitNewsletterForm.js',
     mainSubmitContactForm02: './src/methods/jQuerySubmitContactForm.js',
   },
