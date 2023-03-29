@@ -14,6 +14,11 @@ This website has been made with Webflow platform, but I used some packages in or
 
 - [Webflow](https://webflow.com/)
 - [SwiperJS](https://swiperjs.com/)
+- [Webpack](https://webpack.js.org/)
+- [BarbaJS](https://barba.js.org/)
+- [Greensock](https://greensock.com/gsap/)
+- [TuaBodyScrollLock](https://www.npmjs.com/package/tua-body-scroll-lock)
+
 
 ## 📝 Thanks
 
