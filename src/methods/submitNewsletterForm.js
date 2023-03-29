@@ -1,32 +1,32 @@
-if (document.getElementById('email-form')) {
+if (document.getElementById("email-form")) {
   // === Custom Form Handling ===
   var Webflow = Webflow || [];
   Webflow.push(function () {
     // unbind webflow form handling
-    document.querySelector(document).removeEventListener('submit');
+    $(document).off("submit");
 
-    const formBlock = document.querySelector('#email-form');
-    const emailField = document.querySelector('#rovo-newsletter-email');
-    const checkboxField = document.querySelector('#rovo-newsletter-checkbox');
+    const formBlock = document.querySelector("#email-form");
+    const emailField = document.querySelector("#rovo-newsletter-email");
+    const checkboxField = document.querySelector("#rovo-newsletter-checkbox");
 
     function handleSuccess() {
       const errorCheckboxClass = document.querySelector(
-        '.rovo-checkbox-field-error'
+        ".rovo-checkbox-field-error"
       );
-      const errorEmailClass = document.querySelector('.rovo-email-field-error');
+      const errorEmailClass = document.querySelector(".rovo-email-field-error");
       errorCheckboxClass &&
         checkboxField.parentElement.classList.remove(
-          'rovo-checkbox-field-error'
+          "rovo-checkbox-field-error"
         );
       errorEmailClass &&
-        emailField.parentElement.classList.remove('rovo-email-field-error');
-      formBlock.classList.add('form-success');
-      emailField.value = 'Thank you!';
+        emailField.parentElement.classList.remove("rovo-email-field-error");
+      formBlock.classList.add("form-success");
+      emailField.value = "Thank you!";
 
       setTimeout(() => {
-        formBlock.classList.remove('form-success');
+        formBlock.classList.remove("form-success");
         formBlock.reset();
-        document.querySelector('#rovo-newsletter-checkbox').checked = true;
+        document.querySelector("#rovo-newsletter-checkbox").checked = true;
       }, 3000);
     }
 
@@ -34,26 +34,27 @@ if (document.getElementById('email-form')) {
       result = result || {};
       form
         .find(':input:not([type="submit"]):not([type="file"])')
-        .forEach(function (i, el) {
-          var field = document.querySelector(el);
-          var type = field.getAttribute('type');
+        .each(function (i, el) {
+          var field = $(el);
+          var type = field.attr("type");
           var name =
-            field.getAttribute('data-name') || field.getAttribute('name') || 'Field ' + (i + 1);
-          var value = field.value;
+            field.attr("data-name") || field.attr("name") || "Field " + (i + 1);
+          var value = field.val();
 
-          if (type === 'checkbox') {
-            value = field.matches(':checked');
-          } else if (type === 'radio') {
-            if (result[name] === null || typeof result[name] === 'string') {
+          if (type === "checkbox") {
+            value = field.is(":checked");
+          } else if (type === "radio") {
+            if (result[name] === null || typeof result[name] === "string") {
               return;
             }
 
             value =
-              form.find(`input[name='${field.getAttribute("name")}']:checked`)
-              .value || null;
+              form
+                .find('input[name="' + field.attr("name") + '"]:checked')
+                .val() || null;
           }
 
-          if (typeof value === 'string') {
+          if (typeof value === "string") {
             value = $.trim(value);
           }
 
@@ -61,42 +62,42 @@ if (document.getElementById('email-form')) {
         });
     }
 
-    document.querySelector('#email-form').submit(function (evt) {
+    $("#email-form").submit(function (evt) {
       evt.preventDefault();
-      let siteId = document.querySelector('html').getAttribute('data-wf-site');
-      let formUrl = 'https://webflow.com' + '/api/v1/form/' + siteId;
+      let siteId = $("html").attr("data-wf-site");
+      let formUrl = "https://webflow.com" + "/api/v1/form/" + siteId;
       let payload = {
-        name: evt.currentTarget.getAttribute('data-name'),
+        name: evt.currentTarget.getAttribute("data-name"),
         source: window.location.href,
         test: Webflow.env(),
         fields: {},
         fileUploads: {},
         dolphin: /pass[\s-_]?(word|code)|secret|login|credentials/i.test(
-          document.querySelector('#email-form').innerHTML
+          $("#email-form").html()
         )
       };
 
-      findFields(document.querySelector('#email-form'), payload.fields);
+      findFields($("#email-form"), payload.fields);
       const isFormValid = formBlock.checkValidity();
 
       if (isFormValid) {
         $.ajax({
-            url: formUrl,
-            data: payload,
-            type: 'POST',
-            dataType: 'json',
-            crossDomain: true
-          })
+          url: formUrl,
+          data: payload,
+          type: "POST",
+          dataType: "json",
+          crossDomain: true
+        })
           .done((res) => {
             handleSuccess();
           })
           .fail((err) => console.log(err));
       } else {
         !emailField.checkValidity() &&
-          emailField.parentElement.classList.add('rovo-email-field-error');
+          emailField.parentElement.classList.add("rovo-email-field-error");
         !checkboxField.checkValidity() &&
           checkboxField.parentElement.classList.add(
-            'rovo-checkbox-field-error'
+            "rovo-checkbox-field-error"
           );
       }
     });
