@@ -9,8 +9,10 @@ module.exports = {
   mode: 'production',
   devtool: 'source-map',
   entry: {
-    custom: './src/index.js',
-    mainBarbaJsPageTransitions: './src/methods/barbaJsPageTransitions.js'
+    custom01: './src/index.js',
+    mainBarbaJsPageTransitions01: './src/methods/barbaJsPageTransitions.js',
+    mainSubmitNewsletterForm01: './src/methods/submitNewsletterForm.js',
+    mainSubmitContactForm01: './src/methods/submitContactForm.js',
   },
   output: {
     filename: '[name].js',

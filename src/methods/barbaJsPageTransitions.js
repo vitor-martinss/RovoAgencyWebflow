@@ -360,7 +360,9 @@ function barbaJSPageTransitions() {
       "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/Draggable.min.js",
       "https://cdn.jsdelivr.net/npm/@barba/core",
       "https://cdn.jsdelivr.net/npm/@barba/router@2.1.10/dist/barba-router.umd.min.js",
-      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/build/custom.js"
+      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/build/custom.js",
+      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/src/methods/submitContactForm.js",
+      "https://cdn.jsdelivr.net/gh/vitor-martinss/RovoAgencyWebflow@master/src/methods/submitNewsletterForm.js"
     ];
     customLinks.map((el) => applyNewScript(el));
 
